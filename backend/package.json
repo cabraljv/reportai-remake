@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "ts-node-dev --respawn --transpileOnly src/server.ts",
-    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/config/database.ts"
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/config/database.ts",
+    "start:db": "tsc && ts-node ./node_modules/typeorm/cli -f ./src/config/database.ts migration:run"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -25,13 +26,18 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
+    "@types/multer": "^1.4.3",
+    "@types/sharp": "^0.25.0",
+    "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.10",
+    "sharp": "^0.25.3",
     "typeorm": "^0.2.25",
     "yup": "^0.29.0"
   }

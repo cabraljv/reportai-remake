@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 const table = new Table({
-  name: 'users',
+  name: 'supported_cities',
   columns: [
     {
       name: 'id',
@@ -17,24 +17,9 @@ const table = new Table({
       isNullable: false,
     },
     {
-      name: 'email',
+      name: 'city_code',
       type: 'varchar',
       isNullable: false,
-    },
-    {
-      name: 'password_hash',
-      type: 'varchar',
-      isNullable: false,
-    },
-    {
-      name: 'cpf',
-      type: 'varchar',
-      isNullable: false,
-    },
-    {
-      name: 'isConfirmed',
-      type: 'boolean',
-      default: false,
     },
     {
       name: 'createdAt',
@@ -48,8 +33,7 @@ const table = new Table({
     },
   ],
 });
-
-export class createUser1590220048305 implements MigrationInterface {
+export class createSupportedCities1590269449351 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(table, true);
   }

@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
+  OneToMany,
+} from 'typeorm';
 import bcrypt from 'bcryptjs';
+import Report from './Report';
 
 @Entity({ name: 'users' })
 class User {
@@ -20,11 +27,14 @@ class User {
   @Column()
   public password_hash!: string;
 
-  @Column()
+  @Column({ default: 'now()' })
   public createdAt!: Date;
 
-  @Column()
+  @Column({ default: 'now()' })
   public updatedAt!: Date;
+
+  @OneToMany(() => Report, (report) => report.user)
+  reports!: Report[];
 
   @BeforeInsert()
   async encryptPassword() {

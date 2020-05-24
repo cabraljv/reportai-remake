@@ -10,7 +10,7 @@ const config: ConnectionOptions = {
   database: process.env.DB_NAME,
   entities: ['./src/models/*{.ts,.js}'],
   cli: {
-    migrationsDir: 'src/database/migrations',
+    migrationsDir: 'src/database/migrations/',
     entitiesDir: 'src/models/',
   },
   migrations: ['build/database/migrations/*.js'],
