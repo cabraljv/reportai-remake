@@ -6,6 +6,7 @@ import UserController from './controllers/UserController';
 import SessionController from './controllers/SessionController';
 import auth from './middlewares/auth';
 import ReportController from './controllers/ReportController';
+import GeolocationController from './controllers/GeolocationController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
@@ -22,5 +23,7 @@ routes.post('/report', uploads.single('image'), ReportController.store);
 routes.delete('/report/:reportId', ReportController.destroy);
 routes.get('/report/:reportId', ReportController.show);
 routes.get('/report', ReportController.index);
+
+routes.get('/geolocation', GeolocationController.index);
 
 export default routes;
