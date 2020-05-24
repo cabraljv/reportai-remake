@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 const table = new Table({
   name: 'users',
@@ -37,6 +42,11 @@ const table = new Table({
       default: false,
     },
     {
+      name: 'city_analyser',
+      type: 'int',
+      isNullable: true,
+    },
+    {
       name: 'createdAt',
       type: 'timestamptz',
       default: 'now()',
@@ -49,9 +59,18 @@ const table = new Table({
   ],
 });
 
-export class createUser1590220048305 implements MigrationInterface {
+export class createUser1590269449352 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(table, true);
+    await queryRunner.createForeignKey(
+      'users',
+      new TableForeignKey({
+        columnNames: ['city_analyser'],
+        referencedTableName: 'supported_cities',
+        onDelete: 'CASCADE',
+        referencedColumnNames: ['id'],
+      })
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

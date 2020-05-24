@@ -7,6 +7,7 @@ import SessionController from './controllers/SessionController';
 import auth from './middlewares/auth';
 import ReportController from './controllers/ReportController';
 import GeolocationController from './controllers/GeolocationController';
+import AnalyseReportController from './controllers/AnalyseReportController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
@@ -25,5 +26,7 @@ routes.get('/report/:reportId', ReportController.show);
 routes.get('/report', ReportController.index);
 
 routes.get('/geolocation', GeolocationController.index);
+
+routes.get('/analyse/reports', AnalyseReportController.index);
 
 export default routes;

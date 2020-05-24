@@ -55,7 +55,7 @@ class ReportControler {
     });
     await reportRepo.save(report);
 
-    return res.status(201).json({ response: 'User sussessful created' });
+    return res.status(201).json({ response: 'Report sussessful created' });
   }
 
   async show(req: Request, res: Response) {

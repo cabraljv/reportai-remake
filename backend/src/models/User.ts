@@ -4,9 +4,12 @@ import {
   PrimaryGeneratedColumn,
   BeforeInsert,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import Report from './Report';
+import City from './SupportedCities';
 
 @Entity({ name: 'users' })
 class User {
@@ -27,6 +30,9 @@ class User {
   @Column()
   public password_hash!: string;
 
+  @Column()
+  public isConfirmed!: number;
+
   @Column({ default: 'now()' })
   public createdAt!: Date;
 
@@ -35,6 +41,10 @@ class User {
 
   @OneToMany(() => Report, (report) => report.user)
   reports!: Report[];
+
+  @ManyToOne(() => City, (city) => city.analysers)
+  @JoinColumn({ name: 'city_analyser' })
+  city_analyser!: City;
 
   @BeforeInsert()
   async encryptPassword() {

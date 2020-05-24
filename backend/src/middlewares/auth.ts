@@ -12,7 +12,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(token, authConfig.secret);
 
-    req.userId = decoded;
+    req.userId = (<any>decoded).id;
   } catch (err) {
     return res.status(401).json({ error: 'Invalid token' });
   }
