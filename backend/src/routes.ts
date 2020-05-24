@@ -28,5 +28,6 @@ routes.get('/report', ReportController.index);
 routes.get('/geolocation', GeolocationController.index);
 
 routes.get('/analyse/reports', AnalyseReportController.index);
+routes.delete('/analyse/reports/:reportId', AnalyseReportController.destroy);
 
 export default routes;

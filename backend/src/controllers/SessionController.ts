@@ -24,7 +24,10 @@ class SessionController {
     if (!user) return res.status(401).json({ error: 'User not found' });
 
     if (!(await user.verifyPassword(password))) {
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
+    if (!user.isConfirmed)
+      return res.status(400).json({ error: 'User as not be confirmed' });
     const { id, name } = user;
 
     return res.json({

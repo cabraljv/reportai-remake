@@ -39,6 +39,13 @@ class Report {
   public longitude!: number;
 
   @Column()
+  public deletedAt!: Date;
+
+  @ManyToOne(() => User, (user) => user.reports)
+  @JoinColumn({ name: 'deletedBy' })
+  public deletedBy!: User | number;
+
+  @Column()
   public createdAt!: Date;
 
   @Column()
