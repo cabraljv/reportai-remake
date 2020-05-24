@@ -16,6 +16,11 @@ routes.post('/user', UserController.store);
 
 routes.post('/session', SessionController.store);
 
-routes.post('/report', auth, uploads.single('image'), ReportController.store);
+routes.use(auth);
+
+routes.post('/report', uploads.single('image'), ReportController.store);
+routes.delete('/report/:reportId', ReportController.destroy);
+routes.get('/report/:reportId', ReportController.show);
+routes.get('/report', ReportController.index);
 
 export default routes;

@@ -58,12 +58,59 @@ class ReportControler {
     return res.status(201).json({ response: 'User sussessful created' });
   }
 
+  async show(req: Request, res: Response) {
+    const schema = Yup.object().shape({
+      reportId: Yup.string().required(),
+    });
+    if (!(await schema.isValid(req.params)))
+      return res.status(400).json({ error: 'Invalid fields' });
+
+    const { reportId } = req.params;
+
+    const reportRepo = getRepository(Report);
+    const reports = await reportRepo.findOne(reportId, {
+      select: ['description', 'img_path', 'createdAt'],
+    });
+    return res.json(reports);
+  }
+
+  async destroy(req: Request, res: Response) {
+    const schema = Yup.object().shape({
+      reportId: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.params)))
+      return res.status(400).json({ error: 'Invalid fields' });
+
+    const { reportId } = req.params;
+
+    const reportRepo = getRepository(Report);
+
+    const report = await reportRepo.findOne({
+      where: { id: reportId, user: req.userId },
+      select: ['id'],
+    });
+
+    if (!report) return res.status(404).json({ error: 'Report not found' });
+
+    await reportRepo.delete(report);
+
+    return res.json('Report sussessful deleted');
+  }
   async index(req: Request, res: Response) {
     const reportRepo = getRepository(Report);
+
     const reports = await reportRepo
       .createQueryBuilder('report')
-      .leftJoinAndSelect('report.user', 'user')
-      .select(['report.description', 'user.email'])
+      .where({ user: req.userId })
+      .leftJoinAndSelect('report.category', 'category')
+      .select([
+        'report.id',
+        'report.img_path',
+        'report.createdAt',
+        'report.description',
+        'category.name',
+      ])
       .getMany();
     return res.json(reports);
   }
