@@ -8,7 +8,7 @@ import emailIcon from '../../../assets/images/emailIcon.png';
 export interface Props {
   color: string;
 }
-const Main: React.FC = () => {
+const Main: React.FC = ({navigation}) => {
   return (
     <Container>
       <SocialButton color="#5F6FFF">
@@ -23,7 +23,9 @@ const Main: React.FC = () => {
         </LeftIndicator>
         <BtnText style={{color: '#555555'}}>Login com o Google</BtnText>
       </SocialButton>
-      <SocialButton color="#FF5F5F">
+      <SocialButton
+        color="#FF5F5F"
+        onPress={() => navigation.push('EmailLogin')}>
         <LeftIndicator color="#FF4D4D">
           <Icon source={emailIcon} />
         </LeftIndicator>
