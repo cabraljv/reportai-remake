@@ -48,10 +48,11 @@ class User {
 
   @BeforeInsert()
   async encryptPassword() {
+    console.log(this.password);
     this.password_hash = await bcrypt.hash(this.password || '', 8);
     this.password = null;
   }
-  async verifyPassword(pass: string) {
+  async verifyPassword(pass: string): Promise<boolean> {
     return await bcrypt.compare(pass, this.password_hash);
   }
 }

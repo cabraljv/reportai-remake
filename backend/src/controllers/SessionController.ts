@@ -22,7 +22,6 @@ class SessionController {
     const user = await userRepo.findOne({ email });
 
     if (!user) return res.status(401).json({ error: 'User not found' });
-
     if (!(await user.verifyPassword(password))) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }

@@ -22,8 +22,8 @@ class UserController {
     const checkExists = await userRepo.findOne({ email });
 
     if (checkExists) return res.status(400).json({ error: 'Email in use' });
-
     const user = userRepo.create(req.body);
+    console.log(user);
     await userRepo.save(user);
     return res.json({ response: 'User sussessful created' });
   }
