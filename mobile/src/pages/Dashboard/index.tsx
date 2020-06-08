@@ -1,4 +1,6 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
+import MapboxGL from '@react-native-mapbox-gl/maps';
+import {StatusBar} from 'react-native';
 import {
   Container,
   OpenDrawerButton,
@@ -18,24 +20,35 @@ import {
 import {Modalize} from 'react-native-modalize';
 import {Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {MAPBOX_KEY} from 'react-native-dotenv';
 interface Props {
   navigation: any;
 }
 
+MapboxGL.setAccessToken(MAPBOX_KEY);
+MapboxGL.setConnected(true);
 const Dashboard: React.FC<Props> = ({navigation}) => {
   const modalizeRef = useRef<Modalize>(null);
-
+  useEffect(() => {
+    MapboxGL.setTelemetryEnabled(false);
+  }, []);
   const onOpen = () => {
     modalizeRef.current?.open();
   };
   return (
     <Container>
+      <StatusBar backgroundColor="transparent" translucent />
       <OpenDrawerButton onPress={() => navigation.openDrawer()}>
         <OpenDrawerIcon source={require('../../assets/images/burgerRed.png')} />
       </OpenDrawerButton>
-      <TouchableOpacity onPress={onOpen} style={{marginTop: 100}}>
-        <Text>Open the modal</Text>
-      </TouchableOpacity>
+      <MapboxGL.MapView
+        style={{flex: 1}}
+        zoomEnabled
+        logoEnabled={false}
+        styleURL="mapbox://styles/cabraljv/ckan4arq92git1inyy1ezq4jb"
+        attributionEnabled={false}
+        compassViewPosition={3}
+      />
       <Modalize
         ref={modalizeRef}
         scrollViewProps={{showsVerticalScrollIndicator: false}}
