@@ -14,13 +14,13 @@ build/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
-*.xccheckout
+*.xccheckout 
 *.moved-aside
 DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-
+.env
 # Android/IntelliJ
 #
 build/
@@ -61,5 +61,3 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-
-.env
