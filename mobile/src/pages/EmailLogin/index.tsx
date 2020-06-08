@@ -33,7 +33,6 @@ const EmailLogin: React.FC = () => {
       console.log(response.data);
     } catch (error) {
       if (error.response.status === 401) {
-        alert('Email ou senha incorretos');
       }
     }
   };

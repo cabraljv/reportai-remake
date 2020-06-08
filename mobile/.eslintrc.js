@@ -17,6 +17,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'require-jsdoc': 'off',
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [
       'warn',
