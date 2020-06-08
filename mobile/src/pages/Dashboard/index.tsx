@@ -18,6 +18,7 @@ import {
   ReportCreateText,
   ReportContent,
   CloseModalButton,
+  AddReportButton,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -60,6 +61,9 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         <MapboxGL.Camera centerCoordinate={coords} zoomLevel={14} />
         <MapboxGL.UserLocation />
       </MapboxGL.MapView>
+      <AddReportButton>
+        <Icon name="add" color="#fff" size={50} />
+      </AddReportButton>
       <Modalize
         ref={modalizeRef}
         scrollViewProps={{showsVerticalScrollIndicator: false}}

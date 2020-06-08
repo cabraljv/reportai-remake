@@ -15,6 +15,7 @@ export const OpenDrawerButton = styled.TouchableOpacity`
   top: 40px;
   left: 30px;
   elevation: 4;
+  z-index: 10;
 `;
 export const OpenDrawerIcon = styled.Image``;
 
@@ -65,4 +66,17 @@ export const ReportContent = styled.Text`
 `;
 export const CloseModalButton = styled.TouchableOpacity`
   align-self: center;
+`;
+export const AddReportButton = styled.TouchableOpacity`
+  width: 70px;
+  height: 70px;
+  background: #ff5f5f;
+  z-index: 10;
+  position: absolute;
+  bottom: 50px;
+  right: 30px;
+  border-radius: 50px;
+  elevation: 5;
+  align-items: center;
+  justify-content: center;
 `;
