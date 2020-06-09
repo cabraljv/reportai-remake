@@ -12,7 +12,7 @@ import {
   ItemName,
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-const Drawer: React.FC<DrawerContentComponentProps> = () => {
+const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
   return (
     <Container>
       <Header>
@@ -21,7 +21,7 @@ const Drawer: React.FC<DrawerContentComponentProps> = () => {
           <DrawerIcon source={require('../../assets/images/burgerRed.png')} />
         </DrawerButton>
       </Header>
-      <ItemDrawer>
+      <ItemDrawer onPress={() => navigation.navigate('MyReports')}>
         <ItemIcon
           source={require('../../assets/images/reportaiIconDrawer.png')}
         />

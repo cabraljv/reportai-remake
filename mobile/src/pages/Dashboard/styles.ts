@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background: #f00;
+  background: #ffcbcb;
 `;
 export const OpenDrawerButton = styled.TouchableOpacity`
   width: 60px;

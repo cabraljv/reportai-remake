@@ -13,6 +13,8 @@ import {
   ImagePreviewItem,
   DescriptionInput,
   ReportPickerContainer,
+  SubmitButton,
+  BtnText,
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-community/picker';
@@ -24,10 +26,24 @@ interface IReportImage {
 interface IImagePreview {
   uri: string;
 }
+const categoies = [
+  {
+    label: 'Lixo',
+    value: 1,
+  },
+  {
+    label: 'Poste',
+    value: 2,
+  },
+  {
+    label: 'Árvore',
+    value: 3,
+  },
+];
 const AddReport: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<IImagePreview>();
   const [reportImage, setReportImage] = useState<IReportImage>();
-  const [reportType, setReportType] = useState('');
+  const [reportType, setReportType] = useState<number | string>();
   const handleSelectImage = () => {
     ImagePicker.showImagePicker(
       {
@@ -71,8 +87,8 @@ const AddReport: React.FC = () => {
     <Container>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor="transparent"
-        translucent
+        backgroundColor="#FFF6F6"
+        translucent={false}
       />
       <BackButton>
         <Icon name="arrow-back" color="#ff5f5f" size={40} />
@@ -110,14 +126,21 @@ const AddReport: React.FC = () => {
             selectedValue={reportType}
             mode="dropdown"
             onValueChange={(itemValue, itemIndex) => {
-              setReportType(itemValue.toString());
-              console.log(reportType);
+              setReportType(itemValue);
             }}>
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
+            {categoies.map((item) => (
+              <Picker.Item
+                label={item.label}
+                value={item.value}
+                key={item.value}
+              />
+            ))}
           </Picker>
         </ReportPickerContainer>
       </ItemField>
+      <SubmitButton>
+        <BtnText>ENVIAR</BtnText>
+      </SubmitButton>
     </Container>
   );
 };

@@ -3,6 +3,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import DrawerNavigator from '../../components/Drawer';
 import Dashboard from '../../pages/Dashboard';
+import MyReports from '../../pages/MyReports';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,6 +16,7 @@ function DrawerMain() {
       }}
       initialRouteName="Dashboard">
       <Drawer.Screen name="Dashboard" component={Dashboard} />
+      <Drawer.Screen name="MyReports" component={MyReports} />
     </Drawer.Navigator>
   );
 }

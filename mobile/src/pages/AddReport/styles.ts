@@ -64,3 +64,17 @@ export const ReportPickerContainer = styled.View`
   border-radius: 8px;
   padding: 2px;
 `;
+export const SubmitButton = styled.TouchableOpacity`
+  margin: 15px 30px;
+  padding: 12px;
+  background: #ff5f5f;
+  border-radius: 10px;
+  elevation: 5;
+`;
+export const BtnText = styled.Text`
+  font-family: 'NotoSans-Bold';
+  letter-spacing: 3px;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+`;
