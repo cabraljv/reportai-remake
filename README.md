@@ -17,6 +17,14 @@ ReportAí is a project to report problems of the city to the public administrati
 ### Completed layout
 - HomeScreen
 - Email login screen
+- Add Report screen
+- Dashboard screen
+- Dashboard drawer menu
+
+### To Do
+- MyReports screen
+- Info screen
+- Connect to backend
 
 ### Colaborators
 - João Victor Cabral
