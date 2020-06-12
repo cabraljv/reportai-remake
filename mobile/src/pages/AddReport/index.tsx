@@ -18,6 +18,7 @@ import {
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-community/picker';
+import ImagePicker from 'react-native-image-picker';
 interface IReportImage {
   uri: string;
   type?: string;

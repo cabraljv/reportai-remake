@@ -16,7 +16,7 @@ const mainStack = () => (
         gestureEnabled: true,
         ...TransitionPresets.SlideFromRightIOS,
       }}
-      initialRouteName="DrawerRoute">
+      initialRouteName="AddReport">
       <Stack.Screen name="HomePage" component={HomePage} />
       <Stack.Screen name="EmailLogin" component={EmailLogin} />
       <Stack.Screen name="DrawerRoute" component={DrawerRoute} />
