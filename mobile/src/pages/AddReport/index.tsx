@@ -16,6 +16,7 @@ import {
   SubmitButton,
   BtnText,
 } from './styles';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-community/picker';
 import ImagePicker from 'react-native-image-picker';
@@ -42,6 +43,7 @@ const categoies = [
   },
 ];
 const AddReport: React.FC = () => {
+  const navigation = useNavigation();
   const [imagePreview, setImagePreview] = useState<IImagePreview>();
   const [reportImage, setReportImage] = useState<IReportImage>();
   const [reportType, setReportType] = useState<number | string>();
@@ -91,7 +93,7 @@ const AddReport: React.FC = () => {
         backgroundColor="#FFF6F6"
         translucent={false}
       />
-      <BackButton>
+      <BackButton onPress={() => navigation.goBack()}>
         <Icon name="arrow-back" color="#ff5f5f" size={40} />
       </BackButton>
       <Header>

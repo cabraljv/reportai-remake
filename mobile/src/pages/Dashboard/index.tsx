@@ -23,6 +23,7 @@ import {
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {MAPBOX_KEY} from 'react-native-dotenv';
+
 interface Props {
   navigation: any;
 }
@@ -61,7 +62,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         <MapboxGL.Camera centerCoordinate={coords} zoomLevel={14} />
         <MapboxGL.UserLocation />
       </MapboxGL.MapView>
-      <AddReportButton>
+      <AddReportButton onPress={() => navigation.push('AddReport')}>
         <Icon name="add" color="#fff" size={50} />
       </AddReportButton>
       <Modalize

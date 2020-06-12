@@ -27,7 +27,7 @@ export const HeaderImage = styled.Image``;
 export const BackButton = styled.TouchableOpacity`
   align-self: flex-start;
   margin: 5px 30px;
-  margin-top: 40px;
+  margin-top: 10px;
 `;
 export const ItemField = styled.View`
   margin: 0 ${(props: Props) => (props.isImage ? 'auto' : '30px')};
