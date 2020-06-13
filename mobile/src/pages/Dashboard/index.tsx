@@ -33,8 +33,10 @@ MapboxGL.setConnected(true);
 const Dashboard: React.FC<Props> = ({navigation}) => {
   const [coords, setCoords] = useState([0, 0]);
   const modalizeRef = useRef<Modalize>(null);
+
   useEffect(() => {
     MapboxGL.setTelemetryEnabled(false);
+
     Geolocation.getCurrentPosition(
       (position) => {
         setCoords([position.coords.longitude, position.coords.latitude]);
@@ -62,7 +64,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         <MapboxGL.Camera centerCoordinate={coords} zoomLevel={14} />
         <MapboxGL.UserLocation />
       </MapboxGL.MapView>
-      <AddReportButton onPress={() => navigation.push('AddReport')}>
+      <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
         <Icon name="add" color="#fff" size={50} />
       </AddReportButton>
       <Modalize

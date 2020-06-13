@@ -8,6 +8,7 @@ import auth from './middlewares/auth';
 import ReportController from './controllers/ReportController';
 import GeolocationController from './controllers/GeolocationController';
 import AnalyseReportController from './controllers/AnalyseReportController';
+import CategoriesController from './controllers/CategoriesController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
@@ -26,6 +27,8 @@ routes.get('/report/:reportId', ReportController.show);
 routes.get('/report', ReportController.index);
 
 routes.get('/geolocation', GeolocationController.index);
+
+routes.get('/categories', CategoriesController.index);
 
 routes.get('/analyse/reports', AnalyseReportController.index);
 routes.delete('/analyse/reports/:reportId', AnalyseReportController.destroy);

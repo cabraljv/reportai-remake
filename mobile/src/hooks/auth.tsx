@@ -43,22 +43,27 @@ export const AuthProvider: React.FC = ({children}) => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    const response = await api.post<ResponseSignInUser>('/session', {
-      email,
-      password,
-    });
+    try {
+      const response = await api.post<ResponseSignInUser>('/session', {
+        email,
+        password,
+      });
 
-    const {token, user} = response.data;
+      const {token, user} = response.data;
 
-    await AsyncStorage.multiSet([
-      ['@reportai:token', token],
-      ['@reportai:user', JSON.stringify(user)],
-    ]);
-
-    setUser(user);
+      await AsyncStorage.multiSet([
+        ['@reportai:token', token],
+        ['@reportai:user', JSON.stringify(user)],
+      ]);
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+      setUser(user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const signOut = async () => {
+    console.log('aa');
     await AsyncStorage.multiRemove(['@reportai:user', '@reportai:token']);
 
     setUser(null);
