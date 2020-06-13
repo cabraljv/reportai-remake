@@ -4,10 +4,12 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import User from './User';
 import SupportedCity from './SupportedCities';
 import ReportCategory from './ReportCategory';
+import ReportStatus from './ReportStatus';
 
 @Entity({ name: 'reports' })
 class Report {
@@ -44,6 +46,9 @@ class Report {
   @ManyToOne(() => User, (user) => user.reports)
   @JoinColumn({ name: 'deletedBy' })
   public deletedBy!: User | number;
+
+  @OneToMany(() => ReportStatus, (status) => status.report)
+  status!: ReportStatus[];
 
   @Column()
   public createdAt!: Date;
