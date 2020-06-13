@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-import DrawerNavigator from '../../components/Drawer';
-import Dashboard from '../../pages/Dashboard';
-import MyReports from '../../pages/MyReports';
+import DrawerNavigator from '../components/Drawer';
+import Dashboard from '../pages/Dashboard';
+import MyReports from '../pages/MyReports';
 
 const Drawer = createDrawerNavigator();
 

@@ -27,7 +27,7 @@ const table = new Table({
       isNullable: false,
     },
     {
-      name: 'password_hash',
+      name: 'password',
       type: 'varchar',
       isNullable: false,
     },

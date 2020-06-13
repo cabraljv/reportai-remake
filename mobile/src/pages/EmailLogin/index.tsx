@@ -18,19 +18,15 @@ import {
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
-import api from '../../services/api';
-
+import {useAuth} from '../../hooks/auth';
 const EmailLogin: React.FC = () => {
+  const {signIn} = useAuth();
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = async () => {
     try {
-      const response = await api.post('/session', {
-        email,
-        password,
-      });
-      console.log(response.data);
+      await signIn(email, password);
     } catch (error) {
       if (error.response.status === 401) {
       }

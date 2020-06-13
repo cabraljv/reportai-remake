@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import User from '../models/User';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
-
+import { hash } from 'bcryptjs';
 class UserController {
   async store(req: Request, res: Response) {
     const schema = Yup.object().shape({
@@ -17,13 +17,20 @@ class UserController {
 
     const userRepo = getRepository(User);
 
-    const { email } = req.body;
+    const { email, password, cpf, name } = req.body;
 
     const checkExists = await userRepo.findOne({ email });
 
     if (checkExists) return res.status(400).json({ error: 'Email in use' });
-    const user = userRepo.create(req.body);
-    console.log(user);
+    const hashedPassword = await hash(password, 8);
+
+    const user = userRepo.create({
+      name,
+      email,
+      password: hashedPassword,
+      cpf,
+    });
+
     await userRepo.save(user);
     return res.json({ response: 'User sussessful created' });
   }

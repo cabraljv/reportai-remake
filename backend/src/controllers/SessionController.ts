@@ -31,7 +31,6 @@ class SessionController {
 
     return res.json({
       user: {
-        id,
         name,
         email,
       },

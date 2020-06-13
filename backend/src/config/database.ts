@@ -8,12 +8,11 @@ const config: ConnectionOptions = {
   synchronize: false,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: ['./src/models/*{.ts,.js}'],
+  entities: ['./src/models/*.ts'],
+  migrations: ['./src/database/migrations/*.ts'],
   cli: {
-    migrationsDir: 'src/database/migrations/',
-    entitiesDir: 'src/models/',
+    migrationsDir: './src/database/migrations',
   },
-  migrations: ['build/database/migrations/*.js'],
 };
 
 export = config;

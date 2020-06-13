@@ -2,9 +2,9 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  BeforeInsert,
   OneToMany,
   ManyToOne,
+  CreateDateColumn,
   JoinColumn,
 } from 'typeorm';
 import bcrypt from 'bcryptjs';
@@ -25,35 +25,29 @@ class User {
   @Column()
   public cpf!: string;
 
-  public password!: string | null;
-
   @Column()
-  public password_hash!: string;
+  public password!: string;
 
   @Column()
   public isConfirmed!: number;
 
   @Column({ default: 'now()' })
+  @CreateDateColumn()
   public createdAt!: Date;
-
-  @Column({ default: 'now()' })
-  public updatedAt!: Date;
-
-  @OneToMany(() => Report, (report) => report.user)
-  reports!: Report[];
 
   @ManyToOne(() => City, (city) => city.analysers)
   @JoinColumn({ name: 'city_analyser' })
   city_analyser!: City;
 
-  @BeforeInsert()
-  async encryptPassword() {
-    console.log(this.password);
-    this.password_hash = await bcrypt.hash(this.password || '', 8);
-    this.password = null;
-  }
+  @Column({ default: 'now()' })
+  @CreateDateColumn()
+  public updatedAt!: Date;
+
+  @OneToMany(() => Report, (report) => report.user)
+  reports!: Report[];
+
   async verifyPassword(pass: string): Promise<boolean> {
-    return await bcrypt.compare(pass, this.password_hash);
+    return await bcrypt.compare(pass, this.password);
   }
 }
 
