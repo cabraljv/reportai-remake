@@ -45,7 +45,6 @@ const EmailLogin: React.FC = () => {
       <Header>
         <Title>Entrar no ReportAí</Title>
         <HeaderImage
-          resizeMode="contain"
           source={require('../../assets/images/loginTrashImage.png')}
         />
       </Header>

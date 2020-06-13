@@ -49,7 +49,7 @@ class ReportControler {
       user: req.userId || 0,
       city,
       description,
-      img_path: process.env.FILE_STORAGE + 'resized/' + req.file.filename,
+      img_path: process.env.APP_URL + '/files/resized/' + req.file.filename,
       latitude,
       longitude,
     });

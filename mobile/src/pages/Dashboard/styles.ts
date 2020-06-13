@@ -80,3 +80,12 @@ export const AddReportButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
+export const IconReport = styled.Image`
+  width: 60px;
+  height: 92px;
+  z-index: 10;
+`;
+export const ReportIconContainer = styled.View`
+  position: absolute;
+  top: -50px;
+`;

@@ -19,19 +19,40 @@ import {
   ReportContent,
   CloseModalButton,
   AddReportButton,
+  IconReport,
+  ReportIconContainer,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {MAPBOX_KEY} from 'react-native-dotenv';
+import api from '../../services/api';
+import {useAuth} from '../../hooks/auth';
 
 interface Props {
   navigation: any;
 }
 
+interface IReport {
+  category: {
+    icon_path: string;
+    name: string;
+  };
+  createdAt: string;
+  description: string;
+  img_path: string;
+  latitude: number;
+  longitude: number;
+  id: number;
+}
+
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
 const Dashboard: React.FC<Props> = ({navigation}) => {
+  const {signOut} = useAuth();
+
   const [coords, setCoords] = useState([0, 0]);
+  const [reports, setReports] = useState<IReport[]>();
+  const [selectedRepert, setSelectedReport] = useState<IReport>();
   const modalizeRef = useRef<Modalize>(null);
 
   useEffect(() => {
@@ -45,9 +66,18 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
       {timeout: 5000}
     );
   }, []);
-  /* const onOpen = () => {
+  async function getReportsFromAPI() {
+    const response = await api.get<IReport[]>(
+      `/geolocation?latitude=${coords[1]}&longitude=${coords[0]}`
+    );
+    setReports(response.data);
+  }
+  useEffect(() => {
+    getReportsFromAPI();
+  }, [coords]);
+  const onOpenModal = () => {
     modalizeRef.current?.open();
-  };*/
+  };
   return (
     <Container>
       <StatusBar backgroundColor="transparent" translucent />
@@ -63,6 +93,19 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         compassViewPosition={3}>
         <MapboxGL.Camera centerCoordinate={coords} zoomLevel={14} />
         <MapboxGL.UserLocation />
+        {reports &&
+          reports.map((item) => (
+            <MapboxGL.PointAnnotation
+              key={item.id}
+              id={`${item.id}`}
+              coordinate={[item.longitude, item.latitude]}
+              onSelected={() => {
+                setSelectedReport(item);
+                onOpenModal();
+              }}>
+              <IconReport source={{uri: item.category.icon_path}} />
+            </MapboxGL.PointAnnotation>
+          ))}
       </MapboxGL.MapView>
       <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
         <Icon name="add" color="#fff" size={50} />
@@ -82,15 +125,13 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         modalStyle={{borderTopRightRadius: 40, borderTopLeftRadius: 40}}
         withHandle={false}>
         <ModalContainer>
-          <CloseModalButton>
+          <CloseModalButton onPress={() => modalizeRef.current?.close()}>
             <Icon name="expand-more" color="#ff5f5f" size={40} />
           </CloseModalButton>
           <ReportHeader>
-            <ReportImage
-              source={require('../../assets/images/trashimage.png')}
-            />
+            <ReportImage source={{uri: selectedRepert?.img_path}} />
             <ReportHeaderSideContent>
-              <ReportTitle>Lixo</ReportTitle>
+              <ReportTitle>{selectedRepert?.category.name}</ReportTitle>
               <ReportCreateText>Cadastrado em 25/05/2020</ReportCreateText>
               <ReportStatusText>
                 Status: <ReportStatusContent>EM ANÁLISE</ReportStatusContent>
@@ -98,10 +139,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
               <ReportUpdateText>Ultima atualização 27/05/2020</ReportUpdateText>
             </ReportHeaderSideContent>
           </ReportHeader>
-          <ReportContent>
-            Tem lixo na praia a dias, esta atrapalhando o fluxo de pessoas e
-            pode até mesmo trazer doenças para a população local
-          </ReportContent>
+          <ReportContent>{selectedRepert?.description}</ReportContent>
         </ModalContainer>
       </Modalize>
     </Container>
