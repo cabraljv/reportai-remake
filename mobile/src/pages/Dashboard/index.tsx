@@ -57,6 +57,12 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
       (error) => console.log(error),
       {timeout: 5000}
     );
+    const willFocusSubscription = navigation.addListener('focus', () => {
+      getReportsFromAPI();
+    });
+    return () => {
+      willFocusSubscription();
+    };
   }, []);
   async function getReportsFromAPI() {
     const response = await api.get<IReport[]>(
@@ -69,6 +75,9 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
   }, [coords]);
   const onOpenModal = () => {
     modalizeRef.current?.open();
+  };
+  const onCloseModal = () => {
+    modalizeRef.current?.close();
   };
   return (
     <Container>
@@ -84,20 +93,19 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         provider="google"
         loadingIndicatorColor="#ff5f5f"
         loadingEnabled
-        followsUserLocation
         zoomEnabled={false}
         showsPointsOfInterest={false}
         region={{
           latitude: coords[1],
           longitude: coords[0],
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
+          latitudeDelta: 0.012,
+          longitudeDelta: 0.01,
         }}
         initialRegion={{
           latitude: coords[1],
           longitude: coords[0],
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
+          latitudeDelta: 0.012,
+          longitudeDelta: 0.011,
         }}>
         {reports &&
           reports.map((item) => (
@@ -133,7 +141,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         modalStyle={{borderTopRightRadius: 40, borderTopLeftRadius: 40}}
         withHandle={false}>
         <ModalContainer>
-          <CloseModalButton onPress={() => modalizeRef.current?.close()}>
+          <CloseModalButton onPress={() => onCloseModal()}>
             <Icon name="expand-more" color="#ff5f5f" size={40} />
           </CloseModalButton>
           <ReportHeader>

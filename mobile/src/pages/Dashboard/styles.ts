@@ -21,6 +21,7 @@ export const OpenDrawerIcon = styled.Image``;
 
 export const ModalContainer = styled.View`
   margin: 10px 30px;
+  height: 400px;
 `;
 export const ReportImage = styled.Image`
   width: 180px;
@@ -71,11 +72,10 @@ export const AddReportButton = styled.TouchableOpacity`
   width: 70px;
   height: 70px;
   background: #ff5f5f;
-  z-index: 10;
-  position: absolute;
-  bottom: 50px;
-  right: 30px;
   border-radius: 50px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
   elevation: 5;
   align-items: center;
   justify-content: center;
@@ -83,9 +83,5 @@ export const AddReportButton = styled.TouchableOpacity`
 export const IconReport = styled.Image`
   width: 40px;
   height: 63px;
-  z-index: 10;
-`;
-export const ReportIconContainer = styled.View`
-  position: absolute;
-  transform: translateY(-31px);
+  z-index: 5;
 `;

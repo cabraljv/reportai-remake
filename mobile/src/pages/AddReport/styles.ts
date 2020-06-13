@@ -78,3 +78,17 @@ export const BtnText = styled.Text`
   text-align: center;
   font-size: 18px;
 `;
+export const LabelSwitch = styled.Text`
+  font-family: 'NotoSans-Regular';
+  font-size: 16px;
+  margin-left: 10px;
+  color: #555;
+`;
+export const ItemFieldSwitch = styled.View`
+  flex-direction: row;
+  margin: 10px 30px;
+`;
+export const ItemFieldMap = styled.View`
+  margin: 10px 30px;
+  height: 350px;
+`;

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Switch} from 'react-native';
 import {
   Container,
   Header,
@@ -15,6 +15,9 @@ import {
   ReportPickerContainer,
   SubmitButton,
   BtnText,
+  LabelSwitch,
+  ItemFieldSwitch,
+  ItemFieldMap,
 } from './styles';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -22,6 +25,7 @@ import {Picker} from '@react-native-community/picker';
 import ImagePicker from 'react-native-image-picker';
 import api from '../../services/api';
 import * as Yup from 'yup';
+import MapView, {Marker} from 'react-native-maps';
 
 interface IReportImage {
   uri: string;
@@ -53,6 +57,13 @@ const AddReport: React.FC = () => {
   const [reportType, setReportType] = useState<number | string>();
   const [categories, setCategories] = useState<ICategory[]>();
   const [reportDesc, setReportDesc] = useState('');
+  const [useMyLocation, setUseMyLocation] = useState(true);
+  const [coords, setCoords] = useState([0, 0]);
+
+  const toggleSwitch = () => {
+    setUseMyLocation((previousState) => !previousState);
+    setCoords(route.params.coords);
+  };
 
   useEffect(() => {
     async function getDataFromAPI() {
@@ -64,6 +75,7 @@ const AddReport: React.FC = () => {
       setCategories(categoriesResponse);
     }
     getDataFromAPI();
+    setCoords(route.params.coords);
   }, []);
 
   const handleSubmit = async () => {
@@ -75,14 +87,13 @@ const AddReport: React.FC = () => {
       data.append('image', reportImage);
       data.append('description', reportDesc);
       data.append('category', reportType);
-      data.append('latitude', route.params.coords[1]);
-      data.append('longitude', route.params.coords[0]);
+      data.append('latitude', coords[1]);
+      data.append('longitude', coords[0]);
       try {
-        const response = await api.post('report', data);
-
-        console.log(response.data);
+        await api.post('report', data);
+        navigation.goBack();
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
       }
     } else {
     }
@@ -183,6 +194,47 @@ const AddReport: React.FC = () => {
           </Picker>
         </ReportPickerContainer>
       </ItemField>
+      <ItemFieldSwitch>
+        <Switch
+          trackColor={{false: '#767577', true: '#FF8D8D'}}
+          thumbColor={useMyLocation ? '#ff5f5f' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={useMyLocation}
+          style={{transform: [{scaleX: 1.3}, {scaleY: 1.3}]}}
+        />
+        <LabelSwitch>Usar minha localização atual</LabelSwitch>
+      </ItemFieldSwitch>
+      {!useMyLocation && (
+        <ItemFieldMap>
+          <MapView
+            style={{flex: 1}}
+            showsUserLocation
+            zoomControlEnabled={false}
+            customMapStyle={require('../../assets/maps/style.json')}
+            provider="google"
+            loadingIndicatorColor="#ff5f5f"
+            loadingEnabled
+            followsUserLocation
+            zoomEnabled={false}
+            showsPointsOfInterest={false}
+            initialRegion={{
+              latitude: route.params.coords[1],
+              longitude: route.params.coords[0],
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}
+            onPress={(event) => {
+              setCoords([
+                event.nativeEvent.coordinate.longitude,
+                event.nativeEvent.coordinate.latitude,
+              ]);
+            }}>
+            <Marker coordinate={{longitude: coords[0], latitude: coords[1]}} />
+          </MapView>
+        </ItemFieldMap>
+      )}
+
       <SubmitButton onPress={handleSubmit}>
         <BtnText>ENVIAR</BtnText>
       </SubmitButton>
