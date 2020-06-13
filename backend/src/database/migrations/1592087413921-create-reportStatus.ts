@@ -24,7 +24,7 @@ const table = new Table({
     {
       name: 'user_id',
       type: 'int',
-      isNullable: false,
+      isNullable: true,
     },
     {
       name: 'report_id',

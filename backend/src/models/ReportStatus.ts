@@ -8,7 +8,7 @@ import {
 import User from './User';
 import Report from './Report';
 
-@Entity({ name: 'reports' })
+@Entity({ name: 'report_status' })
 class ReportStatus {
   @PrimaryGeneratedColumn()
   public id?: number;
@@ -23,9 +23,6 @@ class ReportStatus {
   @ManyToOne(() => Report, (report) => report.status)
   @JoinColumn({ name: 'report_id' })
   public report!: Report | number;
-
-  @Column()
-  public latitude!: number;
 
   @Column()
   public createdAt!: Date;

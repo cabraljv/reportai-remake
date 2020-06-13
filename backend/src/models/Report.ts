@@ -48,7 +48,7 @@ class Report {
   public deletedBy!: User | number;
 
   @OneToMany(() => ReportStatus, (status) => status.report)
-  status!: ReportStatus[];
+  public status!: ReportStatus[];
 
   @Column()
   public createdAt!: Date;

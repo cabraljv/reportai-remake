@@ -1,29 +1,28 @@
 import { Response, Request } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
-
+import CheckUserAnalyser from '../services/CheckUserAnalyser';
 import User from '../models/User';
 import Report from '../models/Report';
 
 class AnalyseReportController {
   async index(req: Request, res: Response) {
-    const userRepository = getRepository(User);
-    const user = await userRepository.findOne({
-      relations: ['city_analyser'],
-      where: { id: req.userId },
-    });
+    const cityId = await CheckUserAnalyser(req.userId || '-1');
 
-    if (!user?.city_analyser)
-      return res.status(401).json({ error: 'User as not a city analyser' });
+    if (cityId === -1) {
+      return res.status(401).json({ error: 'Unautorized' });
+    }
 
     const reportRepository = getRepository(Report);
 
     const reports = await reportRepository
       .createQueryBuilder('report')
-      .where({ city: user.city_analyser.id })
+      .where({ city: cityId })
       .leftJoinAndSelect('report.city', 'city')
       .leftJoinAndSelect('report.category', 'category')
       .leftJoinAndSelect('report.user', 'user')
+      .leftJoinAndSelect('report.category', 'category')
+      .leftJoinAndSelect('report.status', 'status')
       .select([
         'report.id',
         'report.description',
@@ -31,6 +30,8 @@ class AnalyseReportController {
         'category.name',
         'user.id',
         'user.name',
+        'status.description',
+        'status.createdAt',
       ])
       .getMany();
 

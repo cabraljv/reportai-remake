@@ -9,6 +9,7 @@ import ReportController from './controllers/ReportController';
 import GeolocationController from './controllers/GeolocationController';
 import AnalyseReportController from './controllers/AnalyseReportController';
 import CategoriesController from './controllers/CategoriesController';
+import ReportStatusController from './controllers/ReportStatusController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
@@ -29,6 +30,8 @@ routes.get('/report', ReportController.index);
 routes.get('/geolocation', GeolocationController.index);
 
 routes.get('/categories', CategoriesController.index);
+
+routes.get('/status', ReportStatusController.store);
 
 routes.get('/analyse/reports', AnalyseReportController.index);
 routes.delete('/analyse/reports/:reportId', AnalyseReportController.destroy);

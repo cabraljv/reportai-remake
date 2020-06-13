@@ -7,6 +7,7 @@ import Axios from 'axios';
 import sharp from 'sharp';
 import path from 'path';
 import fs from 'fs';
+import ReportStatus from '../models/ReportStatus';
 
 class ReportControler {
   async store(req: Request, res: Response) {
@@ -44,9 +45,10 @@ class ReportControler {
       .toFile(path.resolve(req.file.destination, 'resized', req.file.filename));
 
     fs.unlinkSync(req.file.path);
+
     const report = reportRepo.create({
       category,
-      user: req.userId || 0,
+      user: parseInt(req.userId || '0'),
       city,
       description,
       img_path: process.env.APP_URL + '/files/resized/' + req.file.filename,
@@ -54,6 +56,15 @@ class ReportControler {
       longitude,
     });
     await reportRepo.save(report);
+
+    const reportStatusRepo = getRepository(ReportStatus);
+    const newReportStatus = reportStatusRepo.create({
+      user: parseInt(req.userId || '0'),
+      description: 'EM ANÁLISE',
+      report: report.id,
+    });
+
+    reportStatusRepo.save(newReportStatus);
 
     return res.status(201).json({ response: 'Report sussessful created' });
   }
@@ -104,12 +115,19 @@ class ReportControler {
       .createQueryBuilder('report')
       .where({ user: req.userId })
       .leftJoinAndSelect('report.category', 'category')
+      .leftJoinAndSelect('report.status', 'status')
+      .leftJoinAndSelect('report.category', 'category')
+      .leftJoinAndSelect('report.status', 'status')
       .select([
         'report.id',
         'report.img_path',
         'report.createdAt',
         'report.description',
         'category.name',
+        'status.description',
+        'status.createdAt',
+        'status.description',
+        'status.createdAt',
       ])
       .getMany();
     return res.json(reports);

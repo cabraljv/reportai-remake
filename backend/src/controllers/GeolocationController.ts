@@ -23,6 +23,7 @@ class GeolocationController {
     const reports = await reportRepository
       .createQueryBuilder('report')
       .leftJoinAndSelect('report.category', 'category')
+      .leftJoinAndSelect('report.status', 'status')
       .select([
         'report.id',
         'report.description',
@@ -32,6 +33,8 @@ class GeolocationController {
         'report.createdAt',
         'category.name',
         'category.icon_path',
+        'status.description',
+        'status.createdAt',
       ])
       .where(
         `(3959 * acos(cos(radians(${latitude})) * 
