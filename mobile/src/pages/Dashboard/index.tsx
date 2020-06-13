@@ -25,6 +25,7 @@ import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 import MapView, {Marker} from 'react-native-maps';
+import {format} from 'date-fns';
 
 interface Props {
   navigation: any;
@@ -41,12 +42,16 @@ interface IReport {
   latitude: number;
   longitude: number;
   id: number;
+  status: {
+    description: string;
+    createdAt: string;
+  }[];
 }
 
 const Dashboard: React.FC<Props> = ({navigation}) => {
   const [coords, setCoords] = useState([0, 0]);
   const [reports, setReports] = useState<IReport[]>();
-  const [selectedRepert, setSelectedReport] = useState<IReport>();
+  const [selectedReport, setSelectedReport] = useState<IReport>();
   const modalizeRef = useRef<Modalize>(null);
 
   useEffect(() => {
@@ -68,6 +73,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
     const response = await api.get<IReport[]>(
       `/geolocation?latitude=${coords[1]}&longitude=${coords[0]}`
     );
+
     setReports(response.data);
   }
   useEffect(() => {
@@ -99,7 +105,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
           latitude: coords[1],
           longitude: coords[0],
           latitudeDelta: 0.012,
-          longitudeDelta: 0.01,
+          longitudeDelta: 0.011,
         }}
         initialRegion={{
           latitude: coords[1],
@@ -145,17 +151,31 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
             <Icon name="expand-more" color="#ff5f5f" size={40} />
           </CloseModalButton>
           <ReportHeader>
-            <ReportImage source={{uri: selectedRepert?.img_path}} />
+            <ReportImage source={{uri: selectedReport?.img_path}} />
             <ReportHeaderSideContent>
-              <ReportTitle>{selectedRepert?.category.name}</ReportTitle>
-              <ReportCreateText>Cadastrado em 25/05/2020</ReportCreateText>
+              <ReportTitle>{selectedReport?.category.name}</ReportTitle>
+              <ReportCreateText>
+                Cadastrado em{' '}
+                {selectedReport?.createdAt &&
+                  format(new Date(selectedReport?.createdAt), 'dd/MM/yyy')}
+              </ReportCreateText>
               <ReportStatusText>
-                Status: <ReportStatusContent>EM ANÁLISE</ReportStatusContent>
+                Status:{' '}
+                <ReportStatusContent>
+                  {selectedReport?.status[0].description}
+                </ReportStatusContent>
               </ReportStatusText>
-              <ReportUpdateText>Ultima atualização 27/05/2020</ReportUpdateText>
+              <ReportUpdateText>
+                Ultima atualização{' '}
+                {selectedReport?.status[0].createdAt &&
+                  format(
+                    new Date(selectedReport?.status[0].createdAt),
+                    'dd/MM/yyy'
+                  )}
+              </ReportUpdateText>
             </ReportHeaderSideContent>
           </ReportHeader>
-          <ReportContent>{selectedRepert?.description}</ReportContent>
+          <ReportContent>{selectedReport?.description}</ReportContent>
         </ModalContainer>
       </Modalize>
     </Container>
