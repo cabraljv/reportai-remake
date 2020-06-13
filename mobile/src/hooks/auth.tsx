@@ -63,7 +63,6 @@ export const AuthProvider: React.FC = ({children}) => {
   };
 
   const signOut = async () => {
-    console.log('aa');
     await AsyncStorage.multiRemove(['@reportai:user', '@reportai:token']);
 
     setUser(null);

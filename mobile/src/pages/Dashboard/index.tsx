@@ -19,11 +19,12 @@ import {
   ReportContent,
   CloseModalButton,
   AddReportButton,
+  IconReport,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 
 interface Props {
   navigation: any;
@@ -78,21 +79,42 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
       <MapView
         style={{flex: 1}}
         showsUserLocation
-        zoomControlEnabled
-        showsPointsOfInterest={false}
+        zoomControlEnabled={false}
+        customMapStyle={require('../../assets/maps/style.json')}
         provider="google"
-        showsBuildings={false}
         loadingIndicatorColor="#ff5f5f"
-        showsIndoors={false}
         loadingEnabled
         followsUserLocation
-        showsCompass
+        zoomEnabled={false}
+        showsPointsOfInterest={false}
+        region={{
+          latitude: coords[1],
+          longitude: coords[0],
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        }}
         initialRegion={{
           latitude: coords[1],
           longitude: coords[0],
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
-        }}></MapView>
+        }}>
+        {reports &&
+          reports.map((item) => (
+            <Marker
+              onPress={() => {
+                setSelectedReport(item);
+                onOpenModal();
+              }}
+              key={item.id}
+              coordinate={{
+                latitude: item.latitude,
+                longitude: item.longitude,
+              }}>
+              <IconReport source={{uri: item.category.icon_path}} />
+            </Marker>
+          ))}
+      </MapView>
       <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
         <Icon name="add" color="#fff" size={50} />
       </AddReportButton>
