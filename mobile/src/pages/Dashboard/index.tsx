@@ -20,13 +20,11 @@ import {
   CloseModalButton,
   AddReportButton,
   IconReport,
-  ReportIconContainer,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {MAPBOX_KEY} from 'react-native-dotenv';
 import api from '../../services/api';
-import {useAuth} from '../../hooks/auth';
 
 interface Props {
   navigation: any;
@@ -48,8 +46,6 @@ interface IReport {
 MapboxGL.setAccessToken(MAPBOX_KEY);
 MapboxGL.setConnected(true);
 const Dashboard: React.FC<Props> = ({navigation}) => {
-  const {signOut} = useAuth();
-
   const [coords, setCoords] = useState([0, 0]);
   const [reports, setReports] = useState<IReport[]>();
   const [selectedRepert, setSelectedReport] = useState<IReport>();

@@ -10,7 +10,7 @@ const Drawer = createDrawerNavigator();
 function DrawerMain() {
   return (
     <Drawer.Navigator
-      drawerContent={DrawerNavigator}
+      drawerContent={(props) => <DrawerNavigator {...props} />}
       drawerStyle={{
         width: 200,
       }}

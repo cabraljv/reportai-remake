@@ -12,7 +12,9 @@ import {
   ItemName,
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useAuth} from '../../hooks/auth';
 const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
+  const {signOut} = useAuth();
   return (
     <Container>
       <Header>
@@ -35,7 +37,7 @@ const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
         <Icon name="info-outline" size={23} color="#545454" />
         <ItemName>Sobre</ItemName>
       </ItemDrawer>
-      <ItemDrawer style={{marginTop: 'auto'}}>
+      <ItemDrawer style={{marginTop: 'auto'}} onPress={() => signOut()}>
         <Icon name="exit-to-app" size={23} color="#545454" />
         <ItemName>Sair</ItemName>
       </ItemDrawer>
