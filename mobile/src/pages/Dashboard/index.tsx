@@ -1,5 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
-import MapboxGL from '@react-native-mapbox-gl/maps';
+
 import {StatusBar} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -19,12 +19,11 @@ import {
   ReportContent,
   CloseModalButton,
   AddReportButton,
-  IconReport,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {MAPBOX_KEY} from 'react-native-dotenv';
 import api from '../../services/api';
+import MapView from 'react-native-maps';
 
 interface Props {
   navigation: any;
@@ -43,8 +42,6 @@ interface IReport {
   id: number;
 }
 
-MapboxGL.setAccessToken(MAPBOX_KEY);
-MapboxGL.setConnected(true);
 const Dashboard: React.FC<Props> = ({navigation}) => {
   const [coords, setCoords] = useState([0, 0]);
   const [reports, setReports] = useState<IReport[]>();
@@ -52,8 +49,6 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
   const modalizeRef = useRef<Modalize>(null);
 
   useEffect(() => {
-    MapboxGL.setTelemetryEnabled(false);
-
     Geolocation.getCurrentPosition(
       (position) => {
         setCoords([position.coords.longitude, position.coords.latitude]);
@@ -80,29 +75,24 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
       <OpenDrawerButton onPress={() => navigation.openDrawer()}>
         <OpenDrawerIcon source={require('../../assets/images/burgerRed.png')} />
       </OpenDrawerButton>
-      <MapboxGL.MapView
+      <MapView
         style={{flex: 1}}
-        zoomEnabled
-        logoEnabled={false}
-        styleURL="mapbox://styles/cabraljv/ckan4arq92git1inyy1ezq4jb"
-        attributionEnabled={false}
-        compassViewPosition={3}>
-        <MapboxGL.Camera centerCoordinate={coords} zoomLevel={14} />
-        <MapboxGL.UserLocation />
-        {reports &&
-          reports.map((item) => (
-            <MapboxGL.PointAnnotation
-              key={item.id}
-              id={`${item.id}`}
-              coordinate={[item.longitude, item.latitude]}
-              onSelected={() => {
-                setSelectedReport(item);
-                onOpenModal();
-              }}>
-              <IconReport source={{uri: item.category.icon_path}} />
-            </MapboxGL.PointAnnotation>
-          ))}
-      </MapboxGL.MapView>
+        showsUserLocation
+        zoomControlEnabled
+        showsPointsOfInterest={false}
+        provider="google"
+        showsBuildings={false}
+        loadingIndicatorColor="#ff5f5f"
+        showsIndoors={false}
+        loadingEnabled
+        followsUserLocation
+        showsCompass
+        initialRegion={{
+          latitude: coords[1],
+          longitude: coords[0],
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
+        }}></MapView>
       <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
         <Icon name="add" color="#fff" size={50} />
       </AddReportButton>

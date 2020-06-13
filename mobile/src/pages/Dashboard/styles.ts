@@ -81,11 +81,11 @@ export const AddReportButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 export const IconReport = styled.Image`
-  width: 60px;
-  height: 92px;
+  width: 40px;
+  height: 63px;
   z-index: 10;
 `;
 export const ReportIconContainer = styled.View`
   position: absolute;
-  top: -50px;
+  transform: translateY(-31px);
 `;
