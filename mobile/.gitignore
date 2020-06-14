@@ -28,7 +28,6 @@ build/
 .gradle
 local.properties
 *.iml
-android/app/src/main/res/values/env.xml
 # Visual Studio Code
 #
 android/app/src/main/res/values/strings.xml
