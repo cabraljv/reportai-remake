@@ -6,7 +6,6 @@ import {View} from 'react-native';
 const Routes: React.FC = () => {
   const {signed, loading} = useAuth();
   if (loading) {
-    console.log(loading);
     return <View></View>;
   }
   return signed ? <AppRoutes /> : <AuthRoutes />;
