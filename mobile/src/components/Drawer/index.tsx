@@ -35,7 +35,7 @@ const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
         <ItemIcon source={require('../../assets/images/ifIconDrawer.png')} />
         <ItemName>IFMG</ItemName>
       </ItemDrawer>
-      <ItemDrawer>
+      <ItemDrawer onPress={() => navigation.navigate('About')}>
         <Icon name="info-outline" size={23} color="#545454" />
         <ItemName>Sobre</ItemName>
       </ItemDrawer>
