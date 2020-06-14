@@ -16,8 +16,6 @@ const routes = Router();
 
 routes.get('/', (req, res) => res.send('All services as running'));
 
-routes.post('/user', UserController.store);
-
 routes.post('/session', SessionController.store);
 
 routes.use(auth);
