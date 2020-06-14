@@ -28,9 +28,9 @@ const HomePage: React.FC = () => {
   const {signIn} = useAuth();
   useEffect(() => {
     GoogleSignin.configure({
-      webClientId: WEB_CLIENT_ID, // client ID of type WEB for your server(needed to verify user ID and offline access)
-      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
-      forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+      webClientId: WEB_CLIENT_ID,
+      offlineAccess: true,
+      forceCodeForRefreshToken: true,
     });
   }, []);
   const signInGoogle = async () => {

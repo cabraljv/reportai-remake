@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 import authConfig from '../config/auth';
 import { OAuth2Client } from 'google-auth-library';
+import axios from 'axios';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 class SessionController {
@@ -64,6 +65,46 @@ class SessionController {
       }
     }
     if (oauth_provider === 'facebook') {
+      const response = await axios.get(
+        `https://graph.facebook.com/v7.0/me?fields=id%2Cname%2Cemail%2Cpicture%7Burl%7D&access_token=${idToken}`
+      );
+      const payload = response.data;
+      const user = await userRepo.findOne({
+        social_id: `facebook-${payload?.id}`,
+      });
+      if (user) {
+        user.email = payload?.email || user.email;
+        user.profile_pic = payload?.picture.data.url || user.profile_pic;
+        user.name = payload?.name || user.name;
+
+        userRepo.save(user);
+        return res.json({
+          user: {
+            name: user.name,
+            email: user.email,
+          },
+          token: jwt.sign({ id: user.id }, authConfig.secret, {
+            expiresIn: authConfig.expiresIn,
+          }),
+        });
+      } else {
+        const newUser = userRepo.create({
+          email: payload?.email,
+          name: payload?.name,
+          profile_pic: payload?.picture.data.url,
+          social_id: `facebook-${payload?.id}`,
+        });
+        userRepo.save(newUser);
+        return res.json({
+          user: {
+            name: newUser.name,
+            email: newUser.email,
+          },
+          token: jwt.sign({ id: newUser.id }, authConfig.secret, {
+            expiresIn: authConfig.expiresIn,
+          }),
+        });
+      }
     }
   }
 }
