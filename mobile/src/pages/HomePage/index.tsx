@@ -16,6 +16,8 @@ import {
   BtnText,
 } from './styles';
 import {GoogleSignin} from '@react-native-community/google-signin';
+import {LoginManager, AccessToken} from 'react-native-fbsdk';
+
 import {useAuth} from '../../hooks/auth';
 import {WEB_CLIENT_ID} from 'react-native-dotenv';
 export interface Props {
@@ -38,6 +40,20 @@ const HomePage: React.FC = () => {
       signIn('google', info.idToken || '');
     } catch (error) {}
   };
+  const signInFacebook = async () => {
+    const result = await LoginManager.logInWithPermissions([
+      'public_profile',
+      'email',
+    ]);
+
+    if (result.isCancelled) {
+      console.log('Login cancelled');
+    } else {
+      const accessToken = await AccessToken.getCurrentAccessToken();
+
+      signIn('facebook', accessToken?.accessToken || '');
+    }
+  };
   return (
     <Container>
       <StatusBar backgroundColor="transparent" translucent />
@@ -50,7 +66,7 @@ const HomePage: React.FC = () => {
       <Footer>
         <FooterBg source={require('../../assets/images/loginBg.png')} />
         <FooterContent>
-          <SocialButton color="#5F6FFF">
+          <SocialButton color="#5F6FFF" onPress={() => signInFacebook()}>
             <LeftIndicator color="#4154FF">
               <Icon source={require('../../assets/images/facebookIcon.png')} />
             </LeftIndicator>

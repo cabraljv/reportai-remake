@@ -63,6 +63,8 @@ class SessionController {
         });
       }
     }
+    if (oauth_provider === 'facebook') {
+    }
   }
 }
 

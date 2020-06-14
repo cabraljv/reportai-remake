@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
+import {Linking} from 'react-native';
 import {
   Container,
   Header,
@@ -29,7 +30,8 @@ const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
         />
         <ItemName>Meus Reports</ItemName>
       </ItemDrawer>
-      <ItemDrawer onPress={() => Linking.openURL('')}>
+      <ItemDrawer
+        onPress={() => Linking.openURL('https://www.ifmg.edu.br/pontenova')}>
         <ItemIcon source={require('../../assets/images/ifIconDrawer.png')} />
         <ItemName>IFMG</ItemName>
       </ItemDrawer>

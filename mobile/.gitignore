@@ -31,6 +31,7 @@ local.properties
 android/app/src/main/res/values/env.xml
 # Visual Studio Code
 #
+android/app/src/main/res/values/strings.xml
 .vscode/
 
 # node.js
