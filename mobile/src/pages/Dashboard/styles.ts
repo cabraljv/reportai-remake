@@ -1,4 +1,8 @@
 import styled from 'styled-components/native';
+import {RFValue} from 'react-native-responsive-fontsize';
+
+import {Dimensions} from 'react-native';
+const width = Dimensions.get('window').width;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -24,18 +28,18 @@ export const ModalContainer = styled.View`
   height: 400px;
 `;
 export const ReportImage = styled.Image`
-  width: 180px;
-  height: 180px;
+  width: ${width * 0.4}px;
+  height: ${width * 0.4}px;
   border-radius: 10px;
 `;
 export const ReportTitle = styled.Text`
   font-family: 'NotoSans-Bold';
-  font-size: 36px;
+  font-size: ${RFValue(35)}px;
   color: #ff5f5f;
 `;
 export const ReportStatusText = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: 18px;
+  font-size: ${RFValue(18)}px;
 `;
 export const ReportStatusContent = styled.Text`
   font-family: 'NotoSans-Bold';
@@ -44,7 +48,7 @@ export const ReportStatusContent = styled.Text`
 export const ReportUpdateText = styled.Text`
   font-family: 'NotoSans-Light';
   color: #6d6d6d;
-  font-size: 12px;
+  font-size: ${RFValue(13)}px;
 `;
 export const ReportHeader = styled.View`
   flex-direction: row;
@@ -52,7 +56,7 @@ export const ReportHeader = styled.View`
 export const ReportCreateText = styled.Text`
   font-family: 'NotoSans-Regular';
   color: #6d6d6d;
-  font-size: 12px;
+  font-size: ${RFValue(13)}px;
   margin-top: -10px;
   margin-bottom: 10px;
 `;
@@ -61,7 +65,7 @@ export const ReportHeaderSideContent = styled.View`
 `;
 export const ReportContent = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: 16px;
+  font-size: ${RFValue(17)}px;
   color: #3d3d3d;
   margin-top: 30px;
 `;

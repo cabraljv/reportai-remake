@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import {Dimensions} from 'react-native';
 const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+import {RFValue} from 'react-native-responsive-fontsize';
 
 export interface Props {
   color: string;
@@ -19,6 +21,7 @@ export const BackgroundImage = styled.Image`
 `;
 export const Logo = styled.Image`
   margin: auto;
+  width: ${width * 0.35}px;
 `;
 export const Header = styled.View`
   margin: 0 auto;
@@ -27,13 +30,13 @@ export const Header = styled.View`
 export const Title = styled.Text`
   color: #ff5f5f;
   font-family: 'NotoSans-Bold';
-  font-size: 40px;
+  font-size: ${RFValue(35)}px;
   text-align: center;
 `;
 export const SubTitle = styled.Text`
   color: #fff;
   font-family: 'NotoSans-Light';
-  font-size: 22px;
+  font-size: ${RFValue(22)}px;
   text-align: center;
 `;
 export const Footer = styled.View`
@@ -59,7 +62,7 @@ export const FooterContent = styled.View`
 
 export const BtnText = styled.Text`
   color: #fff;
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
   width: 70%;
   text-align: center;
   font-family: 'NotoSans-Regular';

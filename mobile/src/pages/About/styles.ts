@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-
+import {RFValue} from 'react-native-responsive-fontsize';
+import {Dimensions} from 'react-native';
+const width = Dimensions.get('window').width;
 export const Container = styled.View`
   flex: 1;
   background: #fff6f6;
@@ -9,19 +11,19 @@ export const BackButton = styled.TouchableOpacity`
 `;
 export const Header = styled.View`
   flex-direction: row;
-  margin: 0 50px;
+  margin: 0 30px;
   align-items: center;
   justify-content: space-between;
 `;
 export const Title = styled.Text`
   font-family: 'NotoSans-Bold';
   color: #ff5f5f;
-  font-size: 24px;
-  width: 150px;
+  font-size: ${RFValue(24)}px;
+  width: ${width * 0.3}px;
 `;
 export const HeaderImage = styled.Image``;
 export const Content = styled.View`
-  margin: 30px 50px;
+  margin: 30px 30px;
   flex-direction: row;
 `;
 export const ContributorItem = styled.View`
@@ -30,12 +32,12 @@ export const ContributorItem = styled.View`
 export const IFMGImage = styled.Image``;
 export const ContributorName = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: 22px;
+  font-size: ${RFValue(20)}px;
   color: #333;
 `;
 export const ContributorEmail = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   color: #555;
 `;
 export const SideView = styled.View`
@@ -43,7 +45,7 @@ export const SideView = styled.View`
 `;
 export const IFMGTitle = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: 18px;
+  font-size: ${RFValue(18)}px;
   color: #333;
   width: 180px;
 `;

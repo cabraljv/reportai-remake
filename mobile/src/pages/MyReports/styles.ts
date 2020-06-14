@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import {RFValue} from 'react-native-responsive-fontsize';
+
 interface Props {
   color?: string;
 }
@@ -20,7 +22,7 @@ export const BackButton = styled.TouchableOpacity``;
 export const Title = styled.Text`
   color: #fff;
   font-family: 'NotoSans-Regular';
-  font-size: 22px;
+  font-size: ${RFValue(22)}px;
   margin-left: 60px;
 `;
 export const ReportsStats = styled.View`
@@ -32,6 +34,7 @@ export const DescriptionText = styled.Text`
   margin-right: 10px;
   font-family: 'NotoSans-Bold';
   color: ${(props: Props) => props.color};
+  font-size: ${RFValue(14)}px;
 `;
 export const Content = styled.ScrollView`
   flex: 1;
@@ -60,12 +63,12 @@ export const ReportItemContent = styled.View`
   flex: 1;
 `;
 export const ReportCategory = styled.Text`
-  font-size: 24px;
+  font-size: ${RFValue(25)}px;
   font-family: 'NotoSans-Bold';
   color: #ff5f5f;
 `;
 export const ReportDate = styled.Text`
-  font-size: 12px;
+  font-size: ${RFValue(13)}px;
   font-family: 'NotoSans-Regular';
   color: #888;
 `;
@@ -74,12 +77,12 @@ export const ReportContentStatus = styled.View`
 `;
 export const ReportContentStatusText = styled.Text`
   font-family: 'NotoSans-Bold';
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
   color: #333;
 `;
 export const ReportContentStatusValue = styled.Text`
   font-family: 'NotoSans-Bold';
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
   color: #888;
 `;
 export const RemoveButton = styled.TouchableOpacity`

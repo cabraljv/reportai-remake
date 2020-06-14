@@ -59,7 +59,10 @@ const HomePage: React.FC = () => {
       <StatusBar backgroundColor="transparent" translucent />
       <BackgroundImage source={require('../../assets/images/background.png')} />
       <Header>
-        <Logo source={require('../../assets/images/logoRed.png')} />
+        <Logo
+          resizeMode="contain"
+          source={require('../../assets/images/logoRed.png')}
+        />
         <Title>ReportAí</Title>
         <SubTitle>Você fiscalizando a cidade</SubTitle>
       </Header>
