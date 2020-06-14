@@ -38,10 +38,6 @@ const About: React.FC = () => {
             <ContributorName>João Victor</ContributorName>
             <ContributorEmail>joaovictorcabral.dev@gmail.com</ContributorEmail>
           </ContributorItem>
-          <ContributorItem>
-            <ContributorName>João Victor</ContributorName>
-            <ContributorEmail>joaovictorcabral.dev@gmail.com</ContributorEmail>
-          </ContributorItem>
         </SideView>
       </Content>
     </Container>
