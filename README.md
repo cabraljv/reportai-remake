@@ -16,17 +16,17 @@ ReportAí is a project to report problems of the city to the public administrati
 
 ### Completed layout
 - HomeScreen
-- Email login screen
 - Add Report screen
 - Dashboard screen
 - Dashboard drawer menu
 - Backend integration
 - Dashboard maps
+- OAuth2 - Google and Facebook
+- Remove email login screen from app
 
 ### To Do
 - MyReports screen
-- Info screen
-- OAuth2 - Google and Facebook
+- About screen
 
 ### Colaborators
 - João Victor Cabral
