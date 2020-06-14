@@ -33,3 +33,61 @@ export const DescriptionText = styled.Text`
   font-family: 'NotoSans-Bold';
   color: ${(props: Props) => props.color};
 `;
+export const Content = styled.ScrollView`
+  flex: 1;
+`;
+export const ReportItem = styled.View`
+  background: #fff;
+  margin: 10px 30px;
+  border-radius: 10px;
+  elevation: 5;
+  height: 100px;
+  flex-direction: row;
+`;
+export const ReportImage = styled.Image`
+  height: 100px;
+  width: 100px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+`;
+export const ReportContentHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const ReportItemContent = styled.View`
+  margin: 0 20px;
+  flex: 1;
+`;
+export const ReportCategory = styled.Text`
+  font-size: 24px;
+  font-family: 'NotoSans-Bold';
+  color: #ff5f5f;
+`;
+export const ReportDate = styled.Text`
+  font-size: 12px;
+  font-family: 'NotoSans-Regular';
+  color: #888;
+`;
+export const ReportContentStatus = styled.View`
+  flex-direction: row;
+`;
+export const ReportContentStatusText = styled.Text`
+  font-family: 'NotoSans-Bold';
+  font-size: 16px;
+  color: #333;
+`;
+export const ReportContentStatusValue = styled.Text`
+  font-family: 'NotoSans-Bold';
+  font-size: 16px;
+  color: #888;
+`;
+export const RemoveButton = styled.TouchableOpacity`
+  align-self: flex-end;
+  margin-top: auto;
+  margin-bottom: 10px;
+`;
+export const RemoveButtonText = styled.Text`
+  font-family: 'NotoSans-Regular';
+  color: #ff5f5f;
+`;

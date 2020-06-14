@@ -62,8 +62,8 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
       (error) => console.log(error),
       {timeout: 5000}
     );
-    const willFocusSubscription = navigation.addListener('focus', () => {
-      getReportsFromAPI();
+    const willFocusSubscription = navigation.addListener('focus', async () => {
+      await getReportsFromAPI();
     });
     return () => {
       willFocusSubscription();

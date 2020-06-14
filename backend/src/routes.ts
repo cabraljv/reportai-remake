@@ -2,7 +2,6 @@ import { Router } from 'express';
 import Multer from 'multer';
 
 import uploadConfig from './config/upload';
-import UserController from './controllers/UserController';
 import SessionController from './controllers/SessionController';
 import auth from './middlewares/auth';
 import ReportController from './controllers/ReportController';

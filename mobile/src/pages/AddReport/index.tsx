@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StatusBar, Switch} from 'react-native';
+import {StatusBar, Switch, ActivityIndicator} from 'react-native';
 import {
   Container,
   Header,
@@ -19,7 +19,14 @@ import {
   ItemFieldSwitch,
   ItemFieldMap,
 } from './styles';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {
+  useNavigation,
+  useRoute,
+  // eslint-disable-next-line no-unused-vars
+  RouteProp,
+  // eslint-disable-next-line no-unused-vars
+  ParamListBase,
+} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Picker} from '@react-native-community/picker';
 import ImagePicker from 'react-native-image-picker';
@@ -44,7 +51,7 @@ interface ICategoryFromAPI {
   name: string;
   id: number;
 }
-interface IRoute {
+interface IRoute extends RouteProp<ParamListBase, string> {
   params: {
     coords: number[];
   };
@@ -59,6 +66,7 @@ const AddReport: React.FC = () => {
   const [reportDesc, setReportDesc] = useState('');
   const [useMyLocation, setUseMyLocation] = useState(true);
   const [coords, setCoords] = useState([0, 0]);
+  const [loading, setLoading] = useState(false);
 
   const toggleSwitch = () => {
     setUseMyLocation((previousState) => !previousState);
@@ -79,6 +87,7 @@ const AddReport: React.FC = () => {
   }, []);
 
   const handleSubmit = async () => {
+    setLoading(true);
     const schema = Yup.object().shape({
       description: Yup.string().required().min(2),
     });
@@ -97,6 +106,7 @@ const AddReport: React.FC = () => {
       }
     } else {
     }
+    setLoading(false);
   };
 
   const handleSelectImage = () => {
@@ -235,8 +245,12 @@ const AddReport: React.FC = () => {
         </ItemFieldMap>
       )}
 
-      <SubmitButton onPress={handleSubmit}>
-        <BtnText>ENVIAR</BtnText>
+      <SubmitButton onPress={handleSubmit} disabled={loading}>
+        {loading ? (
+          <ActivityIndicator color="#fff" size={27} />
+        ) : (
+          <BtnText>ENVIAR</BtnText>
+        )}
       </SubmitButton>
     </Container>
   );

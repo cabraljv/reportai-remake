@@ -110,12 +110,9 @@ class ReportControler {
   }
   async index(req: Request, res: Response) {
     const reportRepo = getRepository(Report);
-
     const reports = await reportRepo
       .createQueryBuilder('report')
       .where({ user: req.userId })
-      .leftJoinAndSelect('report.category', 'category')
-      .leftJoinAndSelect('report.status', 'status')
       .leftJoinAndSelect('report.category', 'category')
       .leftJoinAndSelect('report.status', 'status')
       .select([
