@@ -5,5 +5,5 @@ declare module '*.png' {
 declare module 'react-native-dotenv' {
   export const API_URL: string;
   export const ENV: 'dev' | 'prod';
-  export const MAPBOX_KEY: string;
+  export const WEB_CLIENT_ID: string;
 }

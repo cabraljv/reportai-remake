@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StatusBar} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {
   Container,
   BackgroundImage,
@@ -16,12 +15,29 @@ import {
   Icon,
   BtnText,
 } from './styles';
+import {GoogleSignin} from '@react-native-community/google-signin';
+import {useAuth} from '../../hooks/auth';
+import {WEB_CLIENT_ID} from 'react-native-dotenv';
 export interface Props {
   color: string;
 }
-const HomePage: React.FC = () => {
-  const navigation = useNavigation();
 
+const HomePage: React.FC = () => {
+  const {signIn} = useAuth();
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: WEB_CLIENT_ID, // client ID of type WEB for your server(needed to verify user ID and offline access)
+      offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVER
+      forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
+    });
+  }, []);
+  const signInGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const info = await GoogleSignin.signIn();
+      signIn('google', info.idToken || '');
+    } catch (error) {}
+  };
   return (
     <Container>
       <StatusBar backgroundColor="transparent" translucent />
@@ -40,21 +56,11 @@ const HomePage: React.FC = () => {
             </LeftIndicator>
             <BtnText>Login com o Facebook</BtnText>
           </SocialButton>
-          <SocialButton color="#fff">
+          <SocialButton color="#fff" onPress={() => signInGoogle()}>
             <LeftIndicator color="#F6F6F6">
               <Icon source={require('../../assets/images/googleIcon.png')} />
             </LeftIndicator>
             <BtnText style={{color: '#555555'}}>Login com o Google</BtnText>
-          </SocialButton>
-          <SocialButton
-            color="#FF5F5F"
-            onPress={() => {
-              navigation.navigate('EmailLogin');
-            }}>
-            <LeftIndicator color="#FF4D4D">
-              <Icon source={require('../../assets/images/emailIcon.png')} />
-            </LeftIndicator>
-            <BtnText>Login com o Email</BtnText>
           </SocialButton>
         </FooterContent>
       </Footer>

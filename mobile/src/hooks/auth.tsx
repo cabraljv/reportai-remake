@@ -11,7 +11,7 @@ interface AuthContextData {
   signed: boolean;
   user: User | null;
   loading: boolean;
-  signIn(email: string, password: string): Promise<void>;
+  signIn(oauth_provider: string, idToken: string): Promise<void>;
   signOut(): void;
 }
 interface ResponseSignInUser {
@@ -42,11 +42,11 @@ export const AuthProvider: React.FC = ({children}) => {
     loadStoragedData();
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (oauth_provider: string, idToken: string) => {
     try {
       const response = await api.post<ResponseSignInUser>('/session', {
-        email,
-        password,
+        oauth_provider,
+        idToken,
       });
 
       const {token, user} = response.data;

@@ -29,7 +29,7 @@ const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
         />
         <ItemName>Meus Reports</ItemName>
       </ItemDrawer>
-      <ItemDrawer>
+      <ItemDrawer onPress={() => Linking.openURL('')}>
         <ItemIcon source={require('../../assets/images/ifIconDrawer.png')} />
         <ItemName>IFMG</ItemName>
       </ItemDrawer>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570729720993",
+    "firebase_url": "https://reportai-90988.firebaseio.com",
+    "project_id": "reportai-90988",
+    "storage_bucket": "reportai-90988.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570729720993:android:b191409ce720c16f33d4e0",
+        "android_client_info": {
+          "package_name": "com.reportai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "570729720993-l4oi04dhga8shekgf5tmbaqs6vivd158.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reportai",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "570729720993-01rq48fle1otcblm3ghh0tkb2vr5go8c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy3HJ7RjGyUcIh_OtyXFUSO2qTdPrYOTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "570729720993-01rq48fle1otcblm3ghh0tkb2vr5go8c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

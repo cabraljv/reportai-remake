@@ -27,19 +27,14 @@ const table = new Table({
       isNullable: false,
     },
     {
-      name: 'password',
+      name: 'profile_pic',
       type: 'varchar',
-      isNullable: false,
+      isNullable: true,
     },
     {
-      name: 'cpf',
+      name: 'social_id',
       type: 'varchar',
       isNullable: false,
-    },
-    {
-      name: 'isConfirmed',
-      type: 'boolean',
-      default: false,
     },
     {
       name: 'city_analyser',

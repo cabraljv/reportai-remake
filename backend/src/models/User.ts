@@ -7,7 +7,6 @@ import {
   CreateDateColumn,
   JoinColumn,
 } from 'typeorm';
-import bcrypt from 'bcryptjs';
 import Report from './Report';
 import City from './SupportedCities';
 
@@ -23,13 +22,10 @@ class User {
   public email!: string;
 
   @Column()
-  public cpf!: string;
+  public profile_pic!: string;
 
   @Column()
-  public password!: string;
-
-  @Column()
-  public isConfirmed!: number;
+  public social_id!: string;
 
   @Column({ default: 'now()' })
   @CreateDateColumn()
@@ -45,10 +41,6 @@ class User {
 
   @OneToMany(() => Report, (report) => report.user)
   reports!: Report[];
-
-  async verifyPassword(pass: string): Promise<boolean> {
-    return await bcrypt.compare(pass, this.password);
-  }
 }
 
 export default User;
