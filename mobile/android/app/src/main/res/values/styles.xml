@@ -5,5 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">#000000</item>
          <item name="android:colorControlNormal">#ff5f5f</item>
+          <item name="android:windowBackground">
+            @drawable/background_splash
+        </item>
+        <item name="android:statusBarColor">
+            @color/primary
+        </item>
     </style>
 </resources>

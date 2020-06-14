@@ -31,12 +31,12 @@ export const AuthProvider: React.FC = ({children}) => {
         '@reportai:token',
         '@reportai:user',
       ]);
-
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       if (storagedToken[1] && storagedUser[1]) {
         api.defaults.headers.Authorization = `Bearer ${storagedToken[1]}`;
         setUser(JSON.parse(storagedUser[1]));
-        setLoading(false);
       }
+      setLoading(false);
     }
 
     loadStoragedData();
