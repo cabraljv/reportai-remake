@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StatusBar, Switch, ActivityIndicator} from 'react-native';
+import {StatusBar, Switch, ActivityIndicator, Alert} from 'react-native';
 import {
   Container,
   Header,
@@ -105,6 +105,7 @@ const AddReport: React.FC = () => {
         console.log(error.response.data);
       }
     } else {
+      Alert.alert('Erro', 'Preencha os campos corretamente');
     }
     setLoading(false);
   };

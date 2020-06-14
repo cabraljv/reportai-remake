@@ -1,7 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line no-unused-vars
 import {DrawerContentComponentProps} from '@react-navigation/drawer';
-import {Linking} from 'react-native';
+import {Linking, Alert} from 'react-native';
 import {
   Container,
   Header,
@@ -16,6 +16,23 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useAuth} from '../../hooks/auth';
 const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
   const {signOut} = useAuth();
+  function handleSignOut() {
+    Alert.alert(
+      'Sair',
+      'Voce realmente deseja sair da aplicação?',
+      [
+        {
+          text: 'Sim',
+          onPress: () => signOut(),
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+        },
+      ],
+      {cancelable: true}
+    );
+  }
   return (
     <Container>
       <Header>
@@ -39,7 +56,7 @@ const Drawer: React.FC<DrawerContentComponentProps> = ({navigation}) => {
         <Icon name="info-outline" size={23} color="#545454" />
         <ItemName>Sobre</ItemName>
       </ItemDrawer>
-      <ItemDrawer style={{marginTop: 'auto'}} onPress={() => signOut()}>
+      <ItemDrawer style={{marginTop: 'auto'}} onPress={handleSignOut}>
         <Icon name="exit-to-app" size={23} color="#545454" />
         <ItemName>Sair</ItemName>
       </ItemDrawer>
