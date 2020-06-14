@@ -20,11 +20,13 @@ ReportAí is a project to report problems of the city to the public administrati
 - Add Report screen
 - Dashboard screen
 - Dashboard drawer menu
+- Backend integration
+- Dashboard maps
 
 ### To Do
 - MyReports screen
 - Info screen
-- Connect to backend
+- OAuth2 - Google and Facebook
 
 ### Colaborators
 - João Victor Cabral
