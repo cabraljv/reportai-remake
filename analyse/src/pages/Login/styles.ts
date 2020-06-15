@@ -62,11 +62,23 @@ export const Container = styled.div`
           background: #f6f6f6;
         }
       }
-      button#facebookButton {
+      button.facebookButton {
         background: #5f6fff;
         color: #fff;
+        display: flex;
+        align-items: center;
         div {
+          height: 100%;
+          width: 45px;
+          margin-right: 20px;
+          border-top-left-radius: 20px;
+          border-bottom-left-radius: 20px;
+          align-items: center;
+          justify-content: center;
           background: #495bff;
+          img {
+            width: 20px;
+          }
         }
       }
     }

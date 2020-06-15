@@ -1635,6 +1635,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-facebook-login@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react-facebook-login/-/react-facebook-login-4.1.2.tgz#5a4894fa9abd6972f1454528f2cdf2af28ef3a4d"
+  integrity sha512-GHeUSSa/GMGsNMxmwvb3OcQpfiPviPCm9QFV8u20WfpQwYI5jFhi+HZHlICfj/9oGGe+lzWC4L/4+9hQChIutQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-native@*":
   version "0.62.13"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.62.13.tgz#c688c5ae03e426f927f7e1fa1a59cd067f35d1c2"
@@ -9018,6 +9025,11 @@ react-error-overlay@^6.0.7:
   version "6.0.7"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
+
+react-facebook-login@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.1.1.tgz#005121236a6ac0dee02099976fb1a3265f9d633e"
+  integrity sha512-COnHEHlYGTKipz4963safFAK9PaNTcCiXfPXMS/yxo8El+/AJL5ye8kMJf23lKSSGGPgqFQuInskIHVqGqTvSw==
 
 react-google-login@^5.1.20:
   version "5.1.20"
