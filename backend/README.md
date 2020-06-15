@@ -1,4 +1,4 @@
-<img alt="Screenshot" title="Screenshot" src="./docs/images/logo.png" width="100px" />
+<img alt="Screenshot" title="Screenshot" src="../docs/logo.png" width="100px" />
 
 # ReportAí
 
@@ -12,12 +12,10 @@ Remake da aplicação [ReportAí](http://reportai.com.br) completa em TypeScript
  - TypeOrm
 
 ## Pendente
- - Validação de email
  - Notificações
-
+ 
+ ---
 Licença
-
----
 
 MIT
 
