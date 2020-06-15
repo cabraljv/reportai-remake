@@ -21,7 +21,6 @@ class AnalyseReportController {
       .leftJoinAndSelect('report.city', 'city')
       .leftJoinAndSelect('report.category', 'category')
       .leftJoinAndSelect('report.user', 'user')
-      .leftJoinAndSelect('report.category', 'category')
       .leftJoinAndSelect('report.status', 'status')
       .select([
         'report.id',
