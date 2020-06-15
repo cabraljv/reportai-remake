@@ -1,5 +1,4 @@
 import React, {createContext, useState, useContext, useEffect} from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
 import api from '../services/api';
 
 interface User {
@@ -27,14 +26,13 @@ export const AuthProvider: React.FC = ({children}) => {
 
   useEffect(() => {
     async function loadStoragedData() {
-      const [storagedToken, storagedUser] = await AsyncStorage.multiGet([
-        '@reportai:token',
-        '@reportai:user',
-      ]);
+      const storagedToken = localStorage.getItem('@reportai:token');
+      const storagedUser = localStorage.getItem('@reportai:user');
+
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      if (storagedToken[1] && storagedUser[1]) {
-        api.defaults.headers.Authorization = `Bearer ${storagedToken[1]}`;
-        setUser(JSON.parse(storagedUser[1]));
+      if (storagedToken && storagedUser) {
+        api.defaults.headers.Authorization = `Bearer ${storagedToken}`;
+        setUser(JSON.parse(storagedUser));
       }
       setLoading(false);
     }
@@ -44,17 +42,15 @@ export const AuthProvider: React.FC = ({children}) => {
 
   const signIn = async (oauth_provider: string, idToken: string) => {
     try {
-      const response = await api.post<ResponseSignInUser>('/session/mobile', {
+      const response = await api.post<ResponseSignInUser>('/session/analyse', {
         oauth_provider,
         idToken,
       });
 
       const {token, user} = response.data;
+      localStorage.setItem('@reportai:token', token);
+      localStorage.setItem('@reportai:user', JSON.stringify(user));
 
-      await AsyncStorage.multiSet([
-        ['@reportai:token', token],
-        ['@reportai:user', JSON.stringify(user)],
-      ]);
       api.defaults.headers.Authorization = `Bearer ${token}`;
       setUser(user);
     } catch (error) {
@@ -63,7 +59,7 @@ export const AuthProvider: React.FC = ({children}) => {
   };
 
   const signOut = async () => {
-    await AsyncStorage.multiRemove(['@reportai:user', '@reportai:token']);
+    localStorage.clear();
 
     setUser(null);
   };

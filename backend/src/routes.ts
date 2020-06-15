@@ -2,20 +2,22 @@ import { Router } from 'express';
 import Multer from 'multer';
 
 import uploadConfig from './config/upload';
-import SessionController from './controllers/SessionController';
+import SessionController from './controllers/MobileSessionController';
 import auth from './middlewares/auth';
 import ReportController from './controllers/ReportController';
 import GeolocationController from './controllers/GeolocationController';
 import AnalyseReportController from './controllers/AnalyseReportController';
 import CategoriesController from './controllers/CategoriesController';
 import ReportStatusController from './controllers/ReportStatusController';
+import AnalyseSessionController from './controllers/AnalyseSessionController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
 
 routes.get('/', (req, res) => res.send('All services as running'));
 
-routes.post('/session', SessionController.store);
+routes.post('/session/mobile', SessionController.store);
+routes.post('/session/analyse', AnalyseSessionController.store);
 
 routes.use(auth);
 

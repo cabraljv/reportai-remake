@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 import routes from './routes';
 import './database';
 import path from 'path';
+import cors from 'cors';
 
 class App {
   server: Express;
@@ -13,6 +14,7 @@ class App {
     this.routes();
   }
   middlewares() {
+    this.server.use(cors());
     this.server.use(express.json());
     this.server.use(
       '/files',

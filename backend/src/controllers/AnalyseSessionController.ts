@@ -7,8 +7,8 @@ import authConfig from '../config/auth';
 import { OAuth2Client } from 'google-auth-library';
 import axios from 'axios';
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-class SessionController {
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID_ANALYSE);
+class AnalyseSessionController {
   async store(req: Request, res: Response) {
     const schema = Yup.object().shape({
       idToken: Yup.string().required(),
@@ -24,7 +24,7 @@ class SessionController {
     if (oauth_provider === 'google') {
       const ticket = await client.verifyIdToken({
         idToken,
-        audience: process.env.GOOGLE_CLIENT_ID || '',
+        audience: process.env.GOOGLE_CLIENT_ID_ANALYSE || '',
       });
       const payload = ticket.getPayload();
       const user = await userRepo.findOne({
@@ -109,4 +109,4 @@ class SessionController {
   }
 }
 
-export default new SessionController();
+export default new AnalyseSessionController();
