@@ -4,16 +4,45 @@
 
 Remake da aplicação [ReportAí](http://reportai.com.br) completa em TypeScript
 
-## Tecnologias utilizadas
+## Tools
  - TypeScript
  - Express
  - Docker
  - Postgres
  - TypeOrm
+ - OAuth2
 
-## Pendente
+## To Do
  - Notificações
  
+## Requests
+
+#### Session
+`/session/mobile` - start a session in mobile app
+`/session/analyse` - start a session in analyse
+
+Request:
+```typescript
+  {
+    idToken: string;
+    oauth_provider: 'google' | 'facebook';
+  }
+```
+Response:
+```typescript
+  {
+    user: {
+      name:string;
+      email:string;
+      city_analyser?: {
+        id: string;
+        name:string;
+      }
+    };
+    token: string;
+  }
+```
+
  ---
 Licença
 
