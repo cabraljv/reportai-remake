@@ -7,6 +7,7 @@ import {
   DatePickerStyled,
   Select,
   Filters,
+  ReportDetails,
 } from './styles';
 import GoogleMapReact from 'google-map-react';
 import DatePicker from 'react-datepicker';
@@ -53,6 +54,7 @@ const Map: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<
     IReactSelect[]
   >();
+  const [selectedReport, setSelectedReport] = useState<IReport>();
 
   useEffect(() => {
     async function getReportsFromAPI() {
@@ -125,66 +127,93 @@ const Map: React.FC = () => {
           }}>
           {filtredReports &&
             filtredReports.map((item) => (
-              <Marker lat={item.latitude} lng={item.longitude} key={item.id}>
-                <img
-                  src={'http://10.0.0.107:3333/files/categories/TrashIcon.png'}
-                  alt="report category"
-                />
+              <Marker
+                lat={item.latitude}
+                lng={item.longitude}
+                key={item.id}
+                onClick={() => setSelectedReport(item)}>
+                <img src={item.category.icon_path} alt="report category" />
               </Marker>
             ))}
         </GoogleMapReact>
       </MapContainer>
       <aside>
-        <Filters>
-          <h3>Filtros</h3>
-          <section>
-            <p>Por data:</p>
-            <p>Data de início</p>
-            <DatePicker
-              dateFormat="dd/MM/yyyy"
-              selected={initialDate}
-              maxDate={finalDate}
-              onChange={(date) => date && setInitialDate(date)}
-              customInput={
-                <DatePickerStyled>
-                  <p>
-                    {initialDate
-                      ? format(initialDate, 'dd/MM/yyyy')
-                      : 'dd/MM/yyyy'}
-                  </p>
-                </DatePickerStyled>
-              }
-            />
-            <p>Data de fim</p>
-            <DatePicker
-              dateFormat="dd/MM/yyyy"
-              selected={finalDate}
-              minDate={initialDate}
-              onChange={(date) => date && setFinalDate(date)}
-              customInput={
-                <DatePickerStyled>
-                  <p>
-                    {finalDate ? format(finalDate, 'dd/MM/yyyy') : 'dd/MM/yyyy'}
-                  </p>
-                </DatePickerStyled>
-              }
-            />
-          </section>
-          <section>
-            <p>Por categoria:</p>
-            {reportCategories && (
-              <Select
-                defaultValue={reportCategories}
-                options={reportCategories}
-                isMulti
-                onChange={(selections: IReactSelect[]) =>
-                  setSelectedCategories(selections)
+        {selectedReport ? (
+          <ReportDetails>
+            <header>
+              <section>
+                <span>Categoria:</span>
+                <h3>{selectedReport.category.name}</h3>
+              </section>
+              <p>
+                Cadastrado em{' '}
+                {format(new Date(selectedReport.createdAt), 'dd/MM/yyy')}
+              </p>
+            </header>
+            <section>
+              <img src={selectedReport.img_path} alt="report image" />
+            </section>
+            <section>
+              <span>DESCRIÇÃO:</span>
+              <div>
+                <p>{selectedReport.description}</p>
+              </div>
+            </section>
+          </ReportDetails>
+        ) : (
+          <Filters>
+            <h3>Filtros</h3>
+            <section>
+              <p>Por data:</p>
+              <p>Data de início</p>
+              <DatePicker
+                dateFormat="dd/MM/yyyy"
+                selected={initialDate}
+                maxDate={finalDate}
+                onChange={(date) => date && setInitialDate(date)}
+                customInput={
+                  <DatePickerStyled>
+                    <p>
+                      {initialDate
+                        ? format(initialDate, 'dd/MM/yyyy')
+                        : 'dd/MM/yyyy'}
+                    </p>
+                  </DatePickerStyled>
                 }
               />
-            )}
-          </section>
-          <button onClick={handleResetFilters}>RESTAURAR</button>
-        </Filters>
+              <p>Data de fim</p>
+              <DatePicker
+                dateFormat="dd/MM/yyyy"
+                selected={finalDate}
+                minDate={initialDate}
+                onChange={(date) => date && setFinalDate(date)}
+                customInput={
+                  <DatePickerStyled>
+                    <p>
+                      {finalDate
+                        ? format(finalDate, 'dd/MM/yyyy')
+                        : 'dd/MM/yyyy'}
+                    </p>
+                  </DatePickerStyled>
+                }
+              />
+            </section>
+            <section>
+              <p>Por categoria:</p>
+              {reportCategories && (
+                <Select
+                  defaultValue={reportCategories}
+                  options={reportCategories}
+                  isMulti
+                  onChange={(selections: IReactSelect[]) =>
+                    setSelectedCategories(selections)
+                  }
+                />
+              )}
+            </section>
+            <button onClick={handleResetFilters}>RESTAURAR</button>
+          </Filters>
+        )}
       </aside>
     </Container>
   );

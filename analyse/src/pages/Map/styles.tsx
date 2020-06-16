@@ -27,6 +27,7 @@ export const MapContainer = styled.div`
   padding-top: 65px;
 `;
 export const Marker = styled.div<IMarker>`
+  cursor: pointer;
   img {
     height: 60px;
   }
@@ -68,5 +69,54 @@ export const Filters = styled.div`
     cursor: pointer;
     border-radius: 5px;
     margin-top: 30px;
+  }
+`;
+export const ReportDetails = styled.div`
+  margin: 20px 50px;
+  header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+    section {
+      flex-direction: column;
+      span {
+        color: #ff5f5f;
+        font-size: 0.8rem;
+      }
+      h3 {
+        color: #ff5f5f;
+        font-size: 1.5rem;
+      }
+    }
+    p {
+      font-size: 0.7rem;
+      color: #777;
+      width: 100px;
+    }
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    span {
+      color: #ff5f5f;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    div {
+      height: 200px;
+      width: 100%;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      padding: 8px;
+    }
   }
 `;

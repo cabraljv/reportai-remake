@@ -31,6 +31,7 @@ class AnalyseReportController {
         'report.longitude',
         'category.id',
         'category.name',
+        'category.icon_path',
         'user.id',
         'user.name',
         'status.description',
