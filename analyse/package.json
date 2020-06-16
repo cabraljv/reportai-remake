@@ -10,10 +10,13 @@
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
+    "@types/react-datepicker": "^2.11.1",
     "@types/react-dom": "^16.9.0",
+    "@types/react-select": "^3.0.13",
     "axios": "^0.19.2",
     "google-map-react": "^1.1.7",
     "react": "^16.13.1",
+    "react-datepicker": "^3.0.0",
     "react-dom": "^16.13.1",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.1.20",
@@ -22,6 +25,7 @@
     "react-ripples": "^2.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "redux": "^4.0.5",
     "styled-components": "^5.1.1",
     "typescript": "~3.7.2"
@@ -59,6 +63,8 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "reactotron-react-js": "^3.3.7",
+    "reactotron-redux": "^3.1.3"
   }
 }

@@ -2,13 +2,13 @@ import React from 'react';
 
 import {Container} from './styles';
 import {MdDashboard, MdMap, MdPeople} from 'react-icons/md';
-interface Props {
-  opened: boolean;
-}
+import {useSideBar} from '../../hooks/sidebar';
 
-const SideMenu: React.FC<Props> = ({opened}) => {
+const SideMenu: React.FC = () => {
+  const {open} = useSideBar();
+
   return (
-    <Container opened={opened}>
+    <Container open={open}>
       <button>
         <MdDashboard size={30} color="#858585" />
         <p>Dashboard</p>

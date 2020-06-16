@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface Props {
-  opened: boolean;
+  open: boolean;
 }
 
 export const Container = styled.div`
@@ -11,7 +11,7 @@ export const Container = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(${(p: Props) => (p.opened ? '0' : '-300px')});
+  transform: translate(${(p: Props) => (p.open ? '0' : '-300px')});
   transition: transform 800ms ease;
   z-index: 5;
   box-shadow: 1px 0 5px rgba(0, 0, 0, 0.2);

@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Route} from 'react-router-dom';
 
 import Map from '../pages/Map';
 import Header from '../components/Header';
 import SideMenu from '../components/SideMenu';
+import {SideBarProvider} from '../hooks/sidebar';
 
 export default function AppRoutes() {
-  const [sideOpen, setSideOpen] = useState(false);
   return (
     <>
-      <Header onClickMenu={() => setSideOpen(!sideOpen)} />
-      <SideMenu opened={sideOpen} />
+      <SideBarProvider>
+        <Header />
+        <SideMenu />
+      </SideBarProvider>
       <div style={{marginTop: 65}}>
         <Route path="/" exact component={Map} />
       </div>

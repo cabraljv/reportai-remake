@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-
+import ReactSelect from 'react-select';
+interface IMarker {
+  lat: number;
+  lng: number;
+}
 export const Container = styled.div`
   display: flex;
   width: 100%;
@@ -22,9 +26,47 @@ export const MapContainer = styled.div`
   width: 100%;
   padding-top: 65px;
 `;
-export const Marker = styled.div`
+export const Marker = styled.div<IMarker>`
   img {
-    width: 60px;
     height: 60px;
+  }
+  transform: translate(-19px, -60px);
+`;
+export const DatePickerStyled = styled.div`
+  border: 2px solid #666;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 2px 15px;
+  margin-bottom: 10px;
+  p {
+    font-size: 1.1rem;
+    color: #666;
+  }
+`;
+export const Select = styled(ReactSelect)``;
+export const Filters = styled.div`
+  margin: 10px 30px;
+  h3 {
+    color: #ff5f5f;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  section {
+    p:first-child {
+      font-size: 1.1rem;
+      color: #333;
+      padding: 5px 0;
+    }
+  }
+  button:last-child {
+    background: #ff5f5f;
+    color: #fff;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 30px;
   }
 `;

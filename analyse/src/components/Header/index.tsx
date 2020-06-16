@@ -2,11 +2,10 @@ import React from 'react';
 
 import {Container} from './styles';
 import Ripples from 'react-ripples';
-interface Props {
-  onClickMenu: () => void;
-}
+import {useSideBar} from '../../hooks/sidebar';
 
-const Header: React.FC<Props> = ({onClickMenu}) => {
+const Header: React.FC = () => {
+  const {changeState} = useSideBar();
   return (
     <Container>
       <Ripples>
@@ -14,7 +13,7 @@ const Header: React.FC<Props> = ({onClickMenu}) => {
           <img
             src={require('../../assets/images/burgerMenu.svg')}
             alt="open menu"
-            onClick={() => onClickMenu()}
+            onClick={() => changeState()}
           />
         </button>
       </Ripples>
