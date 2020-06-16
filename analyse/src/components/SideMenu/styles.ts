@@ -16,15 +16,17 @@ export const Container = styled.div`
   z-index: 5;
   box-shadow: 1px 0 5px rgba(0, 0, 0, 0.2);
   padding-top: 80px;
-  padding-left: 50px;
-  button {
+  padding-left: 10px;
+  a {
+    text-decoration: none;
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     background: transparent;
     border: 0;
     align-items: center;
+    padding: 5px 40px;
     margin: 10px 0;
-    padding: 5px;
     p {
       color: #858585;
       margin-left: 15px;

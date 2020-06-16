@@ -151,7 +151,7 @@ const Map: React.FC = () => {
               </p>
             </header>
             <section>
-              <img src={selectedReport.img_path} alt="report image" />
+              <img src={selectedReport.img_path} alt="report" />
             </section>
             <section>
               <span>DESCRIÇÃO:</span>
