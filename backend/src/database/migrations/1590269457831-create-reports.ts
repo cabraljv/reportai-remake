@@ -52,22 +52,22 @@ const table = new Table({
       isNullable: false,
     },
     {
-      name: 'deletedBy',
+      name: 'deleted_by',
       type: 'int',
       isNullable: true,
     },
     {
-      name: 'deletedAt',
+      name: 'deleted_at',
       type: 'timestamptz',
       isNullable: true,
     },
     {
-      name: 'createdAt',
+      name: 'created_at',
       type: 'timestamptz',
       default: 'now()',
     },
     {
-      name: 'updatedAt',
+      name: 'updated_at',
       type: 'timestamptz',
       default: 'now()',
     },
@@ -98,7 +98,7 @@ export class createReports1590269457831 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'reports',
       new TableForeignKey({
-        columnNames: ['deletedBy'],
+        columnNames: ['deleted_by'],
         referencedTableName: 'users',
         onDelete: 'CASCADE',
         referencedColumnNames: ['id'],

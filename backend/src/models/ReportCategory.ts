@@ -13,10 +13,10 @@ class ReportCategory {
   public icon_path!: string;
 
   @Column()
-  public createdAt!: Date;
+  public created_at!: Date;
 
   @Column()
-  public updatedAt!: Date;
+  public updated_at!: Date;
 
   @OneToMany(() => Report, (report) => report.user)
   reports!: Report[];

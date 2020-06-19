@@ -30,11 +30,11 @@ class GeolocationController {
         'report.img_path',
         'report.latitude',
         'report.longitude',
-        'report.createdAt',
+        'report.created_at',
         'category.name',
         'category.icon_path',
         'status.description',
-        'status.createdAt',
+        'status.created_at',
       ])
       .where(
         `(3959 * acos(cos(radians(${latitude})) * 

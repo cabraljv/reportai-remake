@@ -16,6 +16,9 @@ class ReportStatus {
   @Column()
   public description!: string;
 
+  @Column()
+  public status_code!: number;
+
   @ManyToOne(() => User, (user) => user.reports)
   @JoinColumn({ name: 'user_id' })
   public user!: User | number;
@@ -25,10 +28,10 @@ class ReportStatus {
   public report!: Report | number;
 
   @Column()
-  public createdAt!: Date;
+  public created_at!: Date;
 
   @Column()
-  public updatedAt!: Date;
+  public updated_at!: Date;
 }
 
 export default ReportStatus;

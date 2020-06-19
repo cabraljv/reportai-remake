@@ -13,7 +13,7 @@ const Header: React.FC = () => {
           <img
             src={require('../../assets/images/burgerMenu.svg')}
             alt="open menu"
-            onClick={() => changeState()}
+            onClick={changeState}
           />
         </button>
       </Ripples>

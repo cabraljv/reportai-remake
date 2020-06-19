@@ -10,6 +10,7 @@ import AnalyseReportController from './controllers/AnalyseReportController';
 import CategoriesController from './controllers/CategoriesController';
 import ReportStatusController from './controllers/ReportStatusController';
 import AnalyseSessionController from './controllers/AnalyseSessionController';
+import AnalyseDashboardController from './controllers/AnalyseDashboardController';
 
 const uploads = Multer(uploadConfig);
 const routes = Router();
@@ -34,5 +35,6 @@ routes.get('/status', ReportStatusController.store);
 
 routes.get('/analyse/reports', AnalyseReportController.index);
 routes.delete('/analyse/reports/:reportId', AnalyseReportController.destroy);
+routes.get('/analyse/dashboard', AnalyseDashboardController.index);
 
 export default routes;

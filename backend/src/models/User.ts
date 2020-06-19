@@ -29,7 +29,7 @@ class User {
 
   @Column({ default: 'now()' })
   @CreateDateColumn()
-  public createdAt!: Date;
+  public created_at!: Date;
 
   @ManyToOne(() => City, (city) => city.analysers)
   @JoinColumn({ name: 'city_analyser' })
@@ -37,7 +37,7 @@ class User {
 
   @Column({ default: 'now()' })
   @CreateDateColumn()
-  public updatedAt!: Date;
+  public updated_at!: Date;
 
   @OneToMany(() => Report, (report) => report.user)
   reports!: Report[];

@@ -42,12 +42,12 @@ const table = new Table({
       isNullable: true,
     },
     {
-      name: 'createdAt',
+      name: 'created_at',
       type: 'timestamptz',
       default: 'now()',
     },
     {
-      name: 'updatedAt',
+      name: 'updated_at',
       type: 'timestamptz',
       default: 'now()',
     },

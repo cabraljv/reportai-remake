@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 
-import {StatusBar} from 'react-native';
+import {StatusBar, Animated} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
 import {
@@ -20,6 +20,7 @@ import {
   CloseModalButton,
   AddReportButton,
   IconReport,
+  AddReportButtonContainer,
 } from './styles';
 import {Modalize} from 'react-native-modalize';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -52,6 +53,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
   const [coords, setCoords] = useState([0, 0]);
   const [reports, setReports] = useState<IReport[]>();
   const [selectedReport, setSelectedReport] = useState<IReport>();
+  const buttonPosition = useRef(new Animated.Value(0)).current;
   const modalizeRef = useRef<Modalize>(null);
 
   useEffect(() => {
@@ -60,7 +62,7 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
         setCoords([position.coords.longitude, position.coords.latitude]);
       },
       (error) => console.log(error),
-      {timeout: 5000}
+      {timeout: 5000, enableHighAccuracy: true}
     );
     const willFocusSubscription = navigation.addListener('focus', async () => {
       await getReportsFromAPI();
@@ -81,9 +83,19 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
   }, [coords]);
   const onOpenModal = () => {
     modalizeRef.current?.open();
+    Animated.timing(buttonPosition, {
+      toValue: -400,
+      useNativeDriver: true,
+      duration: 800,
+    }).start();
   };
   const onCloseModal = () => {
     modalizeRef.current?.close();
+    Animated.timing(buttonPosition, {
+      toValue: 0,
+      useNativeDriver: true,
+      duration: 1100,
+    }).start();
   };
   return (
     <Container>
@@ -129,15 +141,28 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
             </Marker>
           ))}
       </MapView>
-      <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
-        <Icon name="add" color="#fff" size={50} />
-      </AddReportButton>
+      <AddReportButtonContainer
+        style={{transform: [{translateY: buttonPosition}]}}>
+        <AddReportButton onPress={() => navigation.push('AddReport', {coords})}>
+          <Icon name="add" color="#fff" size={50} />
+        </AddReportButton>
+      </AddReportButtonContainer>
       <Modalize
         ref={modalizeRef}
-        scrollViewProps={{showsVerticalScrollIndicator: false}}
+        scrollViewProps={{
+          showsVerticalScrollIndicator: false,
+        }}
         snapPoint={400}
         overlayStyle={{backgroundColor: 'transparent'}}
         adjustToContentHeight
+        useNativeDriver
+        onClose={() => {
+          Animated.timing(buttonPosition, {
+            toValue: 0,
+            useNativeDriver: true,
+            duration: 500,
+          }).start();
+        }}
         openAnimationConfig={{
           timing: {duration: 1000},
         }}

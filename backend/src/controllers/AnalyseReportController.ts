@@ -14,6 +14,7 @@ class AnalyseReportController {
     }
 
     const reportRepository = getRepository(Report);
+    console.log('oi');
 
     const reports = await reportRepository
       .createQueryBuilder('report')
@@ -27,7 +28,7 @@ class AnalyseReportController {
         'report.description',
         'report.img_path',
         'report.latitude',
-        'report.createdAt',
+        'report.created_at',
         'report.longitude',
         'category.id',
         'category.name',
@@ -35,10 +36,9 @@ class AnalyseReportController {
         'user.id',
         'user.name',
         'status.description',
-        'status.createdAt',
+        'status.created_at',
       ])
       .getMany();
-
     return res.json(reports);
   }
   async destroy(req: Request, res: Response) {
@@ -66,8 +66,8 @@ class AnalyseReportController {
 
     if (!report) return res.status(404).json({ error: 'Report not found' });
 
-    report.deletedAt = new Date();
-    report.deletedBy = user;
+    report.deleted_at = new Date();
+    report.deleted_by = user;
 
     await reportRepository.save(report);
 

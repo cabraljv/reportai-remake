@@ -41,20 +41,20 @@ class Report {
   public longitude!: number;
 
   @Column()
-  public deletedAt!: Date;
+  public deleted_at!: Date;
 
   @ManyToOne(() => User, (user) => user.reports)
-  @JoinColumn({ name: 'deletedBy' })
-  public deletedBy!: User | number;
+  @JoinColumn({ name: 'deleted_by' })
+  public deleted_by!: User | number;
 
   @OneToMany(() => ReportStatus, (status) => status.report)
   public status!: ReportStatus[];
 
   @Column()
-  public createdAt!: Date;
+  public created_at!: Date;
 
   @Column()
-  public updatedAt!: Date;
+  public updated_at!: Date;
 }
 
 export default Report;

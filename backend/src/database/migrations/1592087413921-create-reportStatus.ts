@@ -22,6 +22,11 @@ const table = new Table({
       isNullable: false,
     },
     {
+      name: 'status_code',
+      type: 'int',
+      isNullable: false,
+    },
+    {
       name: 'user_id',
       type: 'int',
       isNullable: true,
@@ -32,12 +37,12 @@ const table = new Table({
       isNullable: false,
     },
     {
-      name: 'createdAt',
+      name: 'created_at',
       type: 'timestamptz',
       default: 'now()',
     },
     {
-      name: 'updatedAt',
+      name: 'updated_at',
       type: 'timestamptz',
       default: 'now()',
     },

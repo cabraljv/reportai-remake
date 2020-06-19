@@ -34,7 +34,7 @@ export const DescriptionText = styled.Text`
   margin-right: 10px;
   font-family: 'NotoSans-Bold';
   color: ${(props: Props) => props.color};
-  font-size: ${RFValue(14)}px;
+  font-size: ${RFValue(12)}px;
 `;
 export const Content = styled.ScrollView`
   flex: 1;

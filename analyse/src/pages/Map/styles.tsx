@@ -16,6 +16,7 @@ export const Container = styled.div`
     right: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding-top: 65px;
+    overflow-y: auto;
   }
 `;
 export const MapContainer = styled.div`

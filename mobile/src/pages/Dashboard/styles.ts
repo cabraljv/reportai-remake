@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Animated} from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 
 import {Dimensions} from 'react-native';
@@ -39,7 +40,7 @@ export const ReportTitle = styled.Text`
 `;
 export const ReportStatusText = styled.Text`
   font-family: 'NotoSans-Regular';
-  font-size: ${RFValue(18)}px;
+  font-size: ${RFValue(16)}px;
 `;
 export const ReportStatusContent = styled.Text`
   font-family: 'NotoSans-Bold';
@@ -48,7 +49,7 @@ export const ReportStatusContent = styled.Text`
 export const ReportUpdateText = styled.Text`
   font-family: 'NotoSans-Light';
   color: #6d6d6d;
-  font-size: ${RFValue(13)}px;
+  font-size: ${RFValue(11)}px;
 `;
 export const ReportHeader = styled.View`
   flex-direction: row;
@@ -56,7 +57,7 @@ export const ReportHeader = styled.View`
 export const ReportCreateText = styled.Text`
   font-family: 'NotoSans-Regular';
   color: #6d6d6d;
-  font-size: ${RFValue(13)}px;
+  font-size: ${RFValue(11)}px;
   margin-top: -10px;
   margin-bottom: 10px;
 `;
@@ -72,14 +73,18 @@ export const ReportContent = styled.Text`
 export const CloseModalButton = styled.TouchableOpacity`
   align-self: center;
 `;
+export const AddReportButtonContainer = styled(Animated.View)`
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  right: 30px;
+  bottom: 30px;
+`;
 export const AddReportButton = styled.TouchableOpacity`
   width: 70px;
   height: 70px;
   background: #ff5f5f;
   border-radius: 50px;
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
   elevation: 5;
   align-items: center;
   justify-content: center;

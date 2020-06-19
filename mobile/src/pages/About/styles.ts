@@ -19,7 +19,7 @@ export const Title = styled.Text`
   font-family: 'NotoSans-Bold';
   color: #ff5f5f;
   font-size: ${RFValue(24)}px;
-  width: ${width * 0.3}px;
+  width: ${width * 0.4}px;
 `;
 export const HeaderImage = styled.Image``;
 export const Content = styled.View`

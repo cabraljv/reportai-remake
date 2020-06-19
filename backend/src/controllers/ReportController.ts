@@ -80,7 +80,7 @@ class ReportControler {
 
     const reportRepo = getRepository(Report);
     const reports = await reportRepo.findOne(reportId, {
-      select: ['description', 'img_path', 'createdAt'],
+      select: ['description', 'img_path', 'created_at'],
     });
     return res.json(reports);
   }
@@ -118,13 +118,13 @@ class ReportControler {
       .select([
         'report.id',
         'report.img_path',
-        'report.createdAt',
+        'report.created_at',
         'report.description',
         'category.name',
         'status.description',
-        'status.createdAt',
+        'status.created_at',
         'status.description',
-        'status.createdAt',
+        'status.created_at',
       ])
       .getMany();
     return res.json(reports);

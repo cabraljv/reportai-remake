@@ -44,6 +44,7 @@ export const AuthProvider: React.FC = ({children}) => {
 
   const signIn = async (oauth_provider: string, idToken: string) => {
     try {
+      console.log('abc');
       const response = await api.post<ResponseSignInUser>('/session/mobile', {
         oauth_provider,
         idToken,
