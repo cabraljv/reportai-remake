@@ -21,7 +21,7 @@ interface IReport {
     icon_path: string;
     name: string;
   };
-  createdAt: string;
+  created_at: string;
   description: string;
   img_path: string;
   latitude: number;
@@ -29,7 +29,7 @@ interface IReport {
   id: number;
   status: {
     description: string;
-    createdAt: string;
+    created_at: string;
   }[];
 }
 interface IReportCategoryRequest {
@@ -98,13 +98,13 @@ const Map: React.FC = () => {
     }
     if (initialDate) {
       const filtred = nMarkers.filter((item) =>
-        isAfter(new Date(item.createdAt), initialDate)
+        isAfter(new Date(item.created_at), initialDate)
       );
       nMarkers = filtred;
     }
     if (finalDate) {
       const filtred = nMarkers.filter((item) =>
-        isBefore(new Date(item.createdAt), finalDate)
+        isBefore(new Date(item.created_at), finalDate)
       );
       nMarkers = filtred;
     }
@@ -147,7 +147,7 @@ const Map: React.FC = () => {
               </section>
               <p>
                 Cadastrado em{' '}
-                {format(new Date(selectedReport.createdAt), 'dd/MM/yyy')}
+                {format(new Date(selectedReport.created_at), 'dd/MM/yyy')}
               </p>
             </header>
             <section>

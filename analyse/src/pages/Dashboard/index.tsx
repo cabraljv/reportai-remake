@@ -9,7 +9,8 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
+  PieChart,
+  Pie,
 } from 'recharts';
 import api from '../../services/api';
 interface IReport {
@@ -21,44 +22,86 @@ interface IReport {
   createdAt: string;
   status: {
     description: string;
-    createdAt: string;
+    created_at: string;
   }[];
 }
-interface IChartData {}
+interface IChartData {
+  date: string;
+  reports: number;
+}
+interface IPieData {
+  name: string;
+  reports: number;
+}
+interface IDashboard {
+  reports_per_day: IChartData[];
+  total_reports: number;
+  reports_finished: number;
+  total_categories: IPieData[];
+}
+
 const Dashboard: React.FC = () => {
-  const [chartData, setChartData] = useState();
+  const [chartData, setChartData] = useState<IChartData[]>();
+  const [pieData, setPieData] = useState<IPieData[]>();
+  const [totalReports, setTotalReports] = useState<number>();
+  const [finishedReports, setFinishedReports] = useState<number>();
   useEffect(() => {
     async function getDataFromAPI() {
-      const response = await api.get('/analyse/dashboard');
-      console.log(response.data);
+      const response = await api.get<IDashboard>('/analyse/dashboard');
+      setChartData(response.data.reports_per_day);
+      setPieData(response.data.total_categories);
+      setTotalReports(response.data.total_reports);
+      setFinishedReports(response.data.reports_finished);
     }
     getDataFromAPI();
   }, []);
+
   return (
     <Container>
       <section id="top">
         <div>
-          <h3>Casos por dia</h3>
-          <LineChart>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis dataKey="cases" type="number" />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="cases"
-              stroke="#F44242"
-              strokeWidth={2}
-            />
-            <Line
-              type="monotone"
-              dataKey="mortes"
-              stroke="#f5da42"
-              strokeWidth={2}
-            />
-          </LineChart>
+          <h3>Reports por dia</h3>
+          <ResponsiveContainer width={'100%'} height={200}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="date" />
+              <YAxis dataKey="reports" type="number" />
+              <Tooltip />
+              <Line
+                name="Reports"
+                type="monotone"
+                dataKey="reports"
+                stroke="#ff5f5f"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
+      </section>
+      <section id="button">
+        <div className="dashboard-item">
+          <h3>Reports por categoria</h3>
+          <ResponsiveContainer width={'100%'} height={180}>
+            <PieChart>
+              <Pie
+                dataKey="reports"
+                isAnimationActive
+                data={pieData}
+                outerRadius={70}
+                fill="#ff5f5f"
+                label
+              />
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="dashboard-item">
+          <h3>Reports registrados</h3>
+          <h6 style={{color: '#ff5f5f'}}>{totalReports}</h6>
+          <h3>Reports concluídos</h3>
+          <h6 style={{color: '#3DEC59'}}>{finishedReports}</h6>
+        </div>
+        <div className="dashboard-item"></div>
       </section>
     </Container>
   );

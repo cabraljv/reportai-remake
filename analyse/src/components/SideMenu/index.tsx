@@ -1,13 +1,15 @@
 import React from 'react';
 
 import {Container} from './styles';
-import {MdDashboard, MdMap, MdPeople} from 'react-icons/md';
+import {MdDashboard, MdMap, MdPeople, MdExitToApp} from 'react-icons/md';
 import {useSideBar} from '../../hooks/sidebar';
 import {Link} from 'react-router-dom';
 import Ripple from 'react-ripples';
+import {useAuth} from '../../hooks/auth';
 
 const SideMenu: React.FC = () => {
   const {open} = useSideBar();
+  const {signOut} = useAuth();
 
   return (
     <Container open={open}>
@@ -29,6 +31,10 @@ const SideMenu: React.FC = () => {
           <p>Usuários</p>
         </Link>
       </Ripple>
+      <button onClick={signOut}>
+        <MdExitToApp size={30} color="#858585" />
+        <p>Sair</p>
+      </button>
     </Container>
   );
 };

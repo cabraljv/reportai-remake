@@ -9,7 +9,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
