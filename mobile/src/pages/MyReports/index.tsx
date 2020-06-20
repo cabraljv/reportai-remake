@@ -31,13 +31,13 @@ interface IReport {
   id: number;
   description: string;
   img_path: string;
-  createdAt: string;
+  created_at: string;
   category: {
     name: string;
   };
   status: {
     description: string;
-    createdAt: string;
+    created_at: string;
   }[];
 }
 const MyReports: React.FC = () => {
@@ -112,7 +112,7 @@ const MyReports: React.FC = () => {
                 <ReportContentHeader>
                   <ReportCategory>{item.category.name}</ReportCategory>
                   <ReportDate>
-                    {format(new Date(item.createdAt), 'dd/MM/yyy')}
+                    {format(new Date(item.created_at), 'dd/MM/yyy')}
                   </ReportDate>
                 </ReportContentHeader>
                 <ReportContentStatus>

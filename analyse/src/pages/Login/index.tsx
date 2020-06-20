@@ -27,7 +27,7 @@ const Login: React.FC = () => {
           <img src={require('../../assets/images/loginImage.svg')} alt="" />
         </header>
         <footer>
-          <button id="googleButton" onClick={() => googleSignIn()}>
+          <button id="googleButton" onClick={googleSignIn}>
             <div>
               <img src={require('../../assets/images/googleIcon.svg')} alt="" />
             </div>

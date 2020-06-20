@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState} from 'react';
 
-import {StatusBar, Animated} from 'react-native';
+import {StatusBar, Animated, Alert} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 
 import {
@@ -37,7 +37,7 @@ interface IReport {
     icon_path: string;
     name: string;
   };
-  createdAt: string;
+  created_at: string;
   description: string;
   img_path: string;
   latitude: number;
@@ -45,7 +45,7 @@ interface IReport {
   id: number;
   status: {
     description: string;
-    createdAt: string;
+    created_at: string;
   }[];
 }
 
@@ -72,11 +72,15 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
     };
   }, []);
   async function getReportsFromAPI() {
-    const response = await api.get<IReport[]>(
-      `/geolocation?latitude=${coords[1]}&longitude=${coords[0]}`
-    );
+    try {
+      const response = await api.get<IReport[]>(
+        `/geolocation?latitude=${coords[1]}&longitude=${coords[0]}`
+      );
 
-    setReports(response.data);
+      setReports(response.data);
+    } catch (error) {
+      Alert.alert('Erro', 'Ocorreu um problema ao revuperar os reports');
+    }
   }
   useEffect(() => {
     getReportsFromAPI();
@@ -181,8 +185,8 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
               <ReportTitle>{selectedReport?.category.name}</ReportTitle>
               <ReportCreateText>
                 Cadastrado em{' '}
-                {selectedReport?.createdAt &&
-                  format(new Date(selectedReport?.createdAt), 'dd/MM/yyy')}
+                {selectedReport?.created_at &&
+                  format(new Date(selectedReport?.created_at), 'dd/MM/yyy')}
               </ReportCreateText>
               <ReportStatusText>
                 Status:{' '}
@@ -192,9 +196,9 @@ const Dashboard: React.FC<Props> = ({navigation}) => {
               </ReportStatusText>
               <ReportUpdateText>
                 Ultima atualização{' '}
-                {selectedReport?.status[0].createdAt &&
+                {selectedReport?.status[0].created_at &&
                   format(
-                    new Date(selectedReport?.status[0].createdAt),
+                    new Date(selectedReport?.status[0].created_at),
                     'dd/MM/yyy'
                   )}
               </ReportUpdateText>

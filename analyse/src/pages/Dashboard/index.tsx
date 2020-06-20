@@ -47,11 +47,15 @@ const Dashboard: React.FC = () => {
   const [finishedReports, setFinishedReports] = useState<number>();
   useEffect(() => {
     async function getDataFromAPI() {
-      const response = await api.get<IDashboard>('/analyse/dashboard');
-      setChartData(response.data.reports_per_day);
-      setPieData(response.data.total_categories);
-      setTotalReports(response.data.total_reports);
-      setFinishedReports(response.data.reports_finished);
+      try {
+        const response = await api.get<IDashboard>('/analyse/dashboard');
+        setChartData(response.data.reports_per_day);
+        setPieData(response.data.total_categories);
+        setTotalReports(response.data.total_reports);
+        setFinishedReports(response.data.reports_finished);
+      } catch (error) {
+        console.log(error);
+      }
     }
     getDataFromAPI();
   }, []);
