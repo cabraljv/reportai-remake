@@ -14,7 +14,6 @@ class AnalyseReportController {
     }
 
     const reportRepository = getRepository(Report);
-    console.log('oi');
 
     const reports = await reportRepository
       .createQueryBuilder('report')
