@@ -105,7 +105,6 @@ const Dashboard: React.FC = () => {
           <h3>Reports concluídos</h3>
           <h6 style={{color: '#3DEC59'}}>{finishedReports}</h6>
         </div>
-        <div className="dashboard-item"></div>
       </section>
     </Container>
   );

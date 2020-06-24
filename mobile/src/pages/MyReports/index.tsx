@@ -43,7 +43,6 @@ interface IReport {
 const MyReports: React.FC = () => {
   const navigation = useNavigation();
   const [inAnalysis, setInAnalysis] = useState(0);
-  const [inProgress, setInProgress] = useState(0);
   const [finished, setFinished] = useState(0);
   const [reports, setReports] = useState<IReport[]>();
 
@@ -57,10 +56,6 @@ const MyReports: React.FC = () => {
           (item) => item.status[0].description === 'EM ANÁLISE'
         );
         setInAnalysis(aux.length);
-        aux = response.data.filter(
-          (item) => item.status[0].description === 'EM ANDAMENTO'
-        );
-        setInProgress(aux.length);
         aux = response.data.filter(
           (item) => item.status[0].description === 'CONCLUIDO'
         );
@@ -88,9 +83,6 @@ const MyReports: React.FC = () => {
           <Title>Meus Reports</Title>
         </TopBar>
         <ReportsStats>
-          <DescriptionText color="#ECECEC">
-            EM ANDAMENTO: {inProgress}
-          </DescriptionText>
           <DescriptionText color="#F6F976">
             EM ANÁLISE:{inAnalysis}
           </DescriptionText>
