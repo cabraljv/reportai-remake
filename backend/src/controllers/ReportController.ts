@@ -103,8 +103,9 @@ class ReportControler {
     });
 
     if (!report) return res.status(404).json({ error: 'Report not found' });
-
-    await reportRepo.delete(report);
+    report.deleted_at = new Date();
+    report.deleted_by = parseInt(req.userId || '0');
+    await reportRepo.save(report);
 
     return res.json('Report sussessful deleted');
   }

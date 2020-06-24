@@ -22,7 +22,7 @@ import {
   RemoveButtonText,
 } from './styles';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {StatusBar} from 'react-native';
+import {StatusBar, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 import {format} from 'date-fns';
@@ -45,28 +45,52 @@ const MyReports: React.FC = () => {
   const [inAnalysis, setInAnalysis] = useState(0);
   const [finished, setFinished] = useState(0);
   const [reports, setReports] = useState<IReport[]>();
+  async function getDataFromAPI() {
+    try {
+      const response = await api.get<IReport[]>('/report');
+      setReports(response.data);
 
-  useEffect(() => {
-    async function getDataFromAPI() {
-      try {
-        const response = await api.get<IReport[]>('/report');
-        setReports(response.data);
-
-        let aux = response.data.filter(
-          (item) => item.status[0].description === 'EM ANÁLISE'
-        );
-        setInAnalysis(aux.length);
-        aux = response.data.filter(
-          (item) => item.status[0].description === 'CONCLUIDO'
-        );
-        setFinished(aux.length);
-      } catch (error) {
-        console.log(error.response.data);
-      }
+      let aux = response.data.filter(
+        (item) => item.status[0].description === 'EM ANÁLISE'
+      );
+      setInAnalysis(aux.length);
+      aux = response.data.filter(
+        (item) => item.status[0].description === 'CONCLUIDO'
+      );
+      setFinished(aux.length);
+    } catch (error) {
+      console.log(error.response.data);
     }
-
+  }
+  useEffect(() => {
     getDataFromAPI();
   }, []);
+  async function handleRemove(id: number) {
+    try {
+      async function deleteReport() {
+        await api.delete(`/report/${id}`);
+        await getDataFromAPI();
+        Alert.alert('Sucesso', 'Report removido com sucesso');
+      }
+      Alert.alert(
+        'Sair',
+        'Voce realmente deseja sair da aplicação?',
+        [
+          {
+            text: 'Sim',
+            onPress: deleteReport,
+          },
+          {
+            text: 'Cancelar',
+            style: 'cancel',
+          },
+        ],
+        {cancelable: true}
+      );
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  }
 
   return (
     <Container>
@@ -113,7 +137,7 @@ const MyReports: React.FC = () => {
                     {item.status[0].description}
                   </ReportContentStatusValue>
                 </ReportContentStatus>
-                <RemoveButton>
+                <RemoveButton onPress={() => handleRemove(item.id)}>
                   <RemoveButtonText>Remover</RemoveButtonText>
                 </RemoveButton>
               </ReportItemContent>
