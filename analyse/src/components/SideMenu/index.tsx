@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Container} from './styles';
-import {MdDashboard, MdMap, MdPeople, MdExitToApp} from 'react-icons/md';
+import {MdDashboard, MdMap, MdExitToApp} from 'react-icons/md';
 import {useSideBar} from '../../hooks/sidebar';
 import {Link} from 'react-router-dom';
 import Ripple from 'react-ripples';
@@ -26,9 +26,9 @@ const SideMenu: React.FC = () => {
         </Link>
       </Ripple>
       <Ripple>
-        <Link to="/">
-          <MdPeople size={30} color="#858585" />
-          <p>Usuários</p>
+        <Link to="/reports">
+          <img src={require('../../assets/images/logoGray.svg')} alt="" />
+          <p>Reports</p>
         </Link>
       </Ripple>
       <button onClick={signOut}>

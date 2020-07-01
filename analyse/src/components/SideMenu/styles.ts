@@ -46,6 +46,9 @@ export const Container = styled.div`
     padding: 5px 40px;
     margin-top: auto;
     margin-bottom: 30px;
+    img {
+      width: 30px;
+    }
     p {
       color: #858585;
       margin-left: 15px;

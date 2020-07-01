@@ -72,6 +72,42 @@ export const Filters = styled.div`
     margin-top: 30px;
   }
 `;
+export const Actions = styled.div`
+  border-top: 1px solid #bbb;
+  margin-top: 20px;
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  section {
+    margin-top: 20px;
+  }
+  section > p {
+    font-size: 0.8rem;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #fff;
+    background-color: #ff5f5f;
+    border: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button#delete {
+    border: 1px solid #ff5f5f;
+    background: transparent;
+    color: #ff5f5f;
+    margin-top: 30px;
+  }
+
+  h3 {
+    color: #ff5f5f;
+    font-size: 1.5rem;
+  }
+`;
 export const ReportDetails = styled.div`
   margin: 20px 50px;
   header {
@@ -116,7 +152,7 @@ export const ReportDetails = styled.div`
       width: 100%;
       background: #fff;
       border-radius: 15px;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
       padding: 8px;
     }
   }

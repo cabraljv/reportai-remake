@@ -8,6 +8,7 @@ import {
   Select,
   Filters,
   ReportDetails,
+  Actions,
 } from './styles';
 import GoogleMapReact from 'google-map-react';
 import DatePicker from 'react-datepicker';
@@ -159,60 +160,80 @@ const Map: React.FC = () => {
                 <p>{selectedReport.description}</p>
               </div>
             </section>
+            <footer>
+              <h3>Ações</h3>
+            </footer>
           </ReportDetails>
         ) : (
-          <Filters>
-            <h3>Filtros</h3>
-            <section>
-              <p>Por data:</p>
-              <p>Data de início</p>
-              <DatePicker
-                dateFormat="dd/MM/yyyy"
-                selected={initialDate}
-                maxDate={finalDate}
-                onChange={(date) => date && setInitialDate(date)}
-                customInput={
-                  <DatePickerStyled>
-                    <p>
-                      {initialDate
-                        ? format(initialDate, 'dd/MM/yyyy')
-                        : 'dd/MM/yyyy'}
-                    </p>
-                  </DatePickerStyled>
-                }
-              />
-              <p>Data de fim</p>
-              <DatePicker
-                dateFormat="dd/MM/yyyy"
-                selected={finalDate}
-                minDate={initialDate}
-                onChange={(date) => date && setFinalDate(date)}
-                customInput={
-                  <DatePickerStyled>
-                    <p>
-                      {finalDate
-                        ? format(finalDate, 'dd/MM/yyyy')
-                        : 'dd/MM/yyyy'}
-                    </p>
-                  </DatePickerStyled>
-                }
-              />
-            </section>
-            <section>
-              <p>Por categoria:</p>
-              {reportCategories && (
+          <>
+            <Filters>
+              <h3>Filtros</h3>
+              <section>
+                <p>Por data:</p>
+                <p>Data de início</p>
+                <DatePicker
+                  dateFormat="dd/MM/yyyy"
+                  selected={initialDate}
+                  maxDate={finalDate}
+                  onChange={(date) => date && setInitialDate(date)}
+                  customInput={
+                    <DatePickerStyled>
+                      <p>
+                        {initialDate
+                          ? format(initialDate, 'dd/MM/yyyy')
+                          : 'dd/MM/yyyy'}
+                      </p>
+                    </DatePickerStyled>
+                  }
+                />
+                <p>Data de fim</p>
+                <DatePicker
+                  dateFormat="dd/MM/yyyy"
+                  selected={finalDate}
+                  minDate={initialDate}
+                  onChange={(date) => date && setFinalDate(date)}
+                  customInput={
+                    <DatePickerStyled>
+                      <p>
+                        {finalDate
+                          ? format(finalDate, 'dd/MM/yyyy')
+                          : 'dd/MM/yyyy'}
+                      </p>
+                    </DatePickerStyled>
+                  }
+                />
+              </section>
+              <section>
+                <p>Por categoria:</p>
+                {reportCategories && (
+                  <Select
+                    defaultValue={reportCategories}
+                    options={reportCategories}
+                    isMulti
+                    onChange={(selections: IReactSelect[]) =>
+                      setSelectedCategories(selections)
+                    }
+                  />
+                )}
+              </section>
+              <button onClick={handleResetFilters}>RESTAURAR</button>
+            </Filters>
+            <Actions>
+              <h3>Ações</h3>
+              <section>
+                <p>ALTERAR STATUS</p>
                 <Select
                   defaultValue={reportCategories}
                   options={reportCategories}
-                  isMulti
                   onChange={(selections: IReactSelect[]) =>
                     setSelectedCategories(selections)
                   }
                 />
-              )}
-            </section>
-            <button onClick={handleResetFilters}>RESTAURAR</button>
-          </Filters>
+              </section>
+              <button id="delete">DELETAR</button>
+              <button>SALVAR</button>
+            </Actions>
+          </>
         )}
       </aside>
     </Container>
