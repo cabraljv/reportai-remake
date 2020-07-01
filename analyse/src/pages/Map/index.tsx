@@ -31,6 +31,7 @@ interface IReport {
   status: {
     description: string;
     created_at: string;
+    status_code: number;
   }[];
 }
 interface IReportCategoryRequest {
@@ -51,10 +52,21 @@ const Map: React.FC = () => {
   const [initialDate, setInitialDate] = useState<Date>();
   const [finalDate, setFinalDate] = useState<Date>();
   const [reportCategories, setReportCategories] = useState<IReactSelect[]>();
+  const reportStatuses: IReactSelect[] = [
+    {
+      label: 'EM ANÁLISE',
+      value: '1',
+    },
+    {
+      label: 'CONCLUÍDO',
+      value: '2',
+    },
+  ];
   const [filtredReports, setFiltredReports] = useState<IReport[]>();
   const [selectedCategories, setSelectedCategories] = useState<
     IReactSelect[]
   >();
+  const [reportStatus, setReportStatus] = useState<IReactSelect>();
   const [selectedReport, setSelectedReport] = useState<IReport>();
 
   useEffect(() => {
@@ -132,7 +144,13 @@ const Map: React.FC = () => {
                 lat={item.latitude}
                 lng={item.longitude}
                 key={item.id}
-                onClick={() => setSelectedReport(item)}>
+                onClick={() => {
+                  setSelectedReport(item);
+                  setReportStatus({
+                    label: item.status[0].description,
+                    value: `${item.status[0].status_code}`,
+                  });
+                }}>
                 <img src={item.category.icon_path} alt="report category" />
               </Marker>
             ))}
@@ -140,93 +158,37 @@ const Map: React.FC = () => {
       </MapContainer>
       <aside>
         {selectedReport ? (
-          <ReportDetails>
-            <header>
-              <section>
-                <span>Categoria:</span>
-                <h3>{selectedReport.category.name}</h3>
-              </section>
-              <p>
-                Cadastrado em{' '}
-                {format(new Date(selectedReport.created_at), 'dd/MM/yyy')}
-              </p>
-            </header>
-            <section>
-              <img src={selectedReport.img_path} alt="report" />
-            </section>
-            <section>
-              <span>DESCRIÇÃO:</span>
-              <div>
-                <p>{selectedReport.description}</p>
-              </div>
-            </section>
-            <footer>
-              <h3>Ações</h3>
-            </footer>
-          </ReportDetails>
-        ) : (
           <>
-            <Filters>
-              <h3>Filtros</h3>
+            <ReportDetails>
+              <header>
+                <section>
+                  <span>Categoria:</span>
+                  <h3>{selectedReport.category.name}</h3>
+                </section>
+                <p>
+                  Cadastrado em{' '}
+                  {format(new Date(selectedReport.created_at), 'dd/MM/yyy')}
+                </p>
+              </header>
               <section>
-                <p>Por data:</p>
-                <p>Data de início</p>
-                <DatePicker
-                  dateFormat="dd/MM/yyyy"
-                  selected={initialDate}
-                  maxDate={finalDate}
-                  onChange={(date) => date && setInitialDate(date)}
-                  customInput={
-                    <DatePickerStyled>
-                      <p>
-                        {initialDate
-                          ? format(initialDate, 'dd/MM/yyyy')
-                          : 'dd/MM/yyyy'}
-                      </p>
-                    </DatePickerStyled>
-                  }
-                />
-                <p>Data de fim</p>
-                <DatePicker
-                  dateFormat="dd/MM/yyyy"
-                  selected={finalDate}
-                  minDate={initialDate}
-                  onChange={(date) => date && setFinalDate(date)}
-                  customInput={
-                    <DatePickerStyled>
-                      <p>
-                        {finalDate
-                          ? format(finalDate, 'dd/MM/yyyy')
-                          : 'dd/MM/yyyy'}
-                      </p>
-                    </DatePickerStyled>
-                  }
-                />
+                <img src={selectedReport.img_path} alt="report" />
               </section>
               <section>
-                <p>Por categoria:</p>
-                {reportCategories && (
-                  <Select
-                    defaultValue={reportCategories}
-                    options={reportCategories}
-                    isMulti
-                    onChange={(selections: IReactSelect[]) =>
-                      setSelectedCategories(selections)
-                    }
-                  />
-                )}
+                <span>DESCRIÇÃO:</span>
+                <div>
+                  <p>{selectedReport.description}</p>
+                </div>
               </section>
-              <button onClick={handleResetFilters}>RESTAURAR</button>
-            </Filters>
+            </ReportDetails>
             <Actions>
               <h3>Ações</h3>
               <section>
                 <p>ALTERAR STATUS</p>
                 <Select
-                  defaultValue={reportCategories}
-                  options={reportCategories}
-                  onChange={(selections: IReactSelect[]) =>
-                    setSelectedCategories(selections)
+                  defaultValue={reportStatus}
+                  options={reportStatuses}
+                  onChange={(selection: IReactSelect) =>
+                    setReportStatus(selection)
                   }
                 />
               </section>
@@ -234,6 +196,59 @@ const Map: React.FC = () => {
               <button>SALVAR</button>
             </Actions>
           </>
+        ) : (
+          <Filters>
+            <h3>Filtros</h3>
+            <section>
+              <p>Por data:</p>
+              <p>Data de início</p>
+              <DatePicker
+                dateFormat="dd/MM/yyyy"
+                selected={initialDate}
+                maxDate={finalDate}
+                onChange={(date) => date && setInitialDate(date)}
+                customInput={
+                  <DatePickerStyled>
+                    <p>
+                      {initialDate
+                        ? format(initialDate, 'dd/MM/yyyy')
+                        : 'dd/MM/yyyy'}
+                    </p>
+                  </DatePickerStyled>
+                }
+              />
+              <p>Data de fim</p>
+              <DatePicker
+                dateFormat="dd/MM/yyyy"
+                selected={finalDate}
+                minDate={initialDate}
+                onChange={(date) => date && setFinalDate(date)}
+                customInput={
+                  <DatePickerStyled>
+                    <p>
+                      {finalDate
+                        ? format(finalDate, 'dd/MM/yyyy')
+                        : 'dd/MM/yyyy'}
+                    </p>
+                  </DatePickerStyled>
+                }
+              />
+            </section>
+            <section>
+              <p>Por categoria:</p>
+              {reportCategories && (
+                <Select
+                  defaultValue={reportCategories}
+                  options={reportCategories}
+                  isMulti
+                  onChange={(selections: IReactSelect[]) =>
+                    setSelectedCategories(selections)
+                  }
+                />
+              )}
+            </section>
+            <button onClick={handleResetFilters}>RESTAURAR</button>
+          </Filters>
         )}
       </aside>
     </Container>

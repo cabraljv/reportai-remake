@@ -36,6 +36,7 @@ class AnalyseReportController {
         'user.name',
         'status.description',
         'status.created_at',
+        'status.status_code',
       ])
       .getMany();
     return res.json(reports);

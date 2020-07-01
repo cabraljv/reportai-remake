@@ -9,7 +9,7 @@ class ReportStatusController {
   async store(req: Request, res: Response) {
     const schema = Yup.object().shape({
       report_id: Yup.number().required(),
-      description: Yup.number().required(),
+      status_code: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body)))
@@ -21,7 +21,7 @@ class ReportStatusController {
 
     const reportStatusRepo = getRepository(ReportStatus);
     const reportRepo = getRepository(Report);
-    const { report_id, description } = req.body;
+    const { report_id, status_code } = req.body;
 
     const report = await reportRepo.findOne({ id: report_id, city: cityId });
 
@@ -29,7 +29,8 @@ class ReportStatusController {
 
     const newReportStatus = reportStatusRepo.create({
       report: report_id,
-      description,
+      status_code,
+      description: status_code === 1 ? 'EM ANÁLISE' : 'CONCLUIDO',
       user: parseInt(req.userId || '0'),
     });
 
