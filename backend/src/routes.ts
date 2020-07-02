@@ -31,7 +31,7 @@ routes.get('/geolocation', GeolocationController.index);
 
 routes.get('/categories', CategoriesController.index);
 
-routes.get('/status', ReportStatusController.store);
+routes.post('/status', ReportStatusController.store);
 
 routes.get('/analyse/reports', AnalyseReportController.index);
 routes.delete('/analyse/reports/:reportId', AnalyseReportController.destroy);
