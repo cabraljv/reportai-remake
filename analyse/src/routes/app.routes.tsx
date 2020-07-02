@@ -6,7 +6,6 @@ import SideMenu from '../components/SideMenu';
 import {SideBarProvider} from '../hooks/sidebar';
 import Map from '../pages/Map';
 import Dashboard from '../pages/Dashboard';
-
 export default function AppRoutes() {
   return (
     <>

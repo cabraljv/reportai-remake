@@ -72,6 +72,23 @@ export const Filters = styled.div`
     margin-top: 30px;
   }
 `;
+export const ModalContent = styled.div`
+  p {
+    font-size: 1.1rem;
+  }
+  div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+    button {
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+    }
+  }
+`;
 export const Actions = styled.div`
   border-top: 1px solid #bbb;
   margin-top: 20px;
