@@ -51,6 +51,7 @@ const Map: React.FC = () => {
   const [finalDate, setFinalDate] = useState<Date>();
   const [reportCategories, setReportCategories] = useState<IReactSelect[]>();
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [statusUpdateModalOpen, setStatusUpdateModalOpen] = useState(false);
   const reportStatuses: IReactSelect[] = [
     {
       label: 'EM ANÁLISE',
@@ -68,15 +69,15 @@ const Map: React.FC = () => {
   const [reportStatus, setReportStatus] = useState<IReactSelect>();
   const [selectedReport, setSelectedReport] = useState<IReport>();
 
-  useEffect(() => {
-    async function getReportsFromAPI() {
-      try {
-        const response = await api.get<IReport[]>('/analyse/reports');
-        setReports(response.data);
-      } catch (error) {
-        console.log(error);
-      }
+  async function getReportsFromAPI() {
+    try {
+      const response = await api.get<IReport[]>('/analyse/reports');
+      setReports(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  }
+  useEffect(() => {
     async function getCategoriesFromAPI() {
       try {
         const response = await api.get<IReportCategoryRequest[]>('/categories');
@@ -126,8 +127,22 @@ const Map: React.FC = () => {
     try {
       await api.delete(`/analyse/reports/${selectedReport?.id}`);
       toast.success('Report deletado com sucesso');
+      await getReportsFromAPI();
     } catch (error) {
       toast.error('Ocorreu um erro ao deletar o report');
+    }
+    setDeleteModalOpen(false);
+  }
+  async function handleStatusUpdate() {
+    try {
+      await api.post(`/status`, {
+        status_code: reportStatus,
+        report_id: selectedReport?.id,
+      });
+      toast.success('Status alterado com sucesso');
+      await getReportsFromAPI();
+    } catch (error) {
+      toast.error('Ocorreu um erro ao alterar o status do report');
     }
     setDeleteModalOpen(false);
   }
@@ -271,6 +286,19 @@ const Map: React.FC = () => {
               Deletar
             </button>
             <button onClick={() => setDeleteModalOpen(false)}>Cancelar</button>
+          </div>
+        </ModalContent>
+      </Modal>
+      <Modal open={statusUpdateModalOpen}>
+        <ModalContent>
+          <p>Você deseja atualizar o status desse report ?</p>
+          <div>
+            <button style={{color: '#ff5f5f'}} onClick={handleStatusUpdate}>
+              Deletar
+            </button>
+            <button onClick={() => setStatusUpdateModalOpen(false)}>
+              Cancelar
+            </button>
           </div>
         </ModalContent>
       </Modal>
