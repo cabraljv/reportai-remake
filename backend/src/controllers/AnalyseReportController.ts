@@ -17,7 +17,7 @@ class AnalyseReportController {
 
     const reports = await reportRepository
       .createQueryBuilder('report')
-      .where({ city: cityId })
+      .where({ city: cityId, deleted_at: null })
       .leftJoinAndSelect('report.city', 'city')
       .leftJoinAndSelect('report.category', 'category')
       .leftJoinAndSelect('report.user', 'user')
