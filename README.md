@@ -24,9 +24,5 @@ ReportAí is a project to report problems of the city to the public administrati
 - OAuth2 - Google and Facebook
 - Remove email login screen from app
 
-### To Do
-- MyReports screen
-- About screen
-
 ### Colaborators
 - João Victor Cabral
