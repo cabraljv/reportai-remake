@@ -41,7 +41,7 @@
     "google-auth-library": "^6.0.1",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.2",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "nodemailer-express-handlebars": "^4.0.0",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
